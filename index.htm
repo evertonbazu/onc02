@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONC - Parte 2</title>
+    <title>ONC - PARTE 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,7 +148,7 @@
                      </div>
                  </div>
                  <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4" style="text-shadow: 0 0 15px rgba(167, 139, 250, 0.7);">
-                     ONC - Parte 2
+                     ONC - PARTE 2
                  </h1>
                   <p class="text-lg sm:text-xl text-violet-300 mt-2">Olá, <span id="player-firstname"></span>! Escolha a resposta certa.</p>
              </header>
@@ -204,7 +204,7 @@
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvzdtou17UCu8lmOFg9fxVEaLg1FnWcvexCYUZzqNLcUhiE6mZW_OkxeeI874AXZRT/exec';
-        const NOME_DESTE_JOGO = "ONC - PARTE2";
+        const NOME_DESTE_JOGO = "ONC - PARTE 2";
 
         // --- ELEMENTOS DO DOM ---
         const loginScreen = document.getElementById('login-screen');
@@ -248,62 +248,81 @@
 
         // --- BANCO DE PERGUNTAS COM EXPLICAÇÕES E PONTOS ---
         const questions = [
-            // Ecologia & Cadeias Alimentares (10 Pontos)
-            { question: 'Qual a principal diferença entre uma cadeia alimentar e uma teia alimentar?', options: ['A cadeia alimentar é mais complexa e interligada, enquanto a teia alimentar é linear.', 'A teia alimentar é linear e tem uma só direção, enquanto a cadeia alimentar mostra um cardápio completo.', 'A cadeia alimentar é um prato único e linear, e a teia alimentar é um cardápio completo e interligado.', 'A teia alimentar envolve apenas produtores, e a cadeia alimentar inclui todos os níveis.', 'Cadeia e teia alimentar são a mesma coisa, apenas com nomes diferentes.'], answer: 'A cadeia alimentar é um prato único e linear, e a teia alimentar é um cardápio completo e interligado.', explanation: 'A cadeia alimentar é como um prato único, linear e com uma só direção de energia. A teia alimentar é como um cardápio completo, mostrando uma rede de cadeias alimentares conectadas, sendo mais complexa e interligada.', points: 10 },
-            { question: 'Na base de uma cadeia alimentar, encontramos os seres vivos que produzem seu próprio alimento. Como eles são chamados?', options: ['Consumidores primários', 'Decompositores', 'Produtores', 'Consumidores secundários', 'Predadores'], answer: 'Produtores', explanation: 'Produtores, como plantas e algas, são a base da cadeia alimentar porque produzem seu próprio alimento, geralmente usando a luz do sol.', points: 10 },
-            { question: 'Um coelho que come uma cenoura é um exemplo de qual tipo de consumidor?', options: ['Consumidor secundário', 'Produtor', 'Decompositor', 'Consumidor primário', 'Consumidor terciário'], answer: 'Consumidor primário', explanation: 'O coelho é um herbívoro, alimentando-se diretamente do produtor (a cenoura), o que o classifica como consumidor primário.', points: 10 },
-            { question: 'Qual o papel dos fungos e bactérias na natureza, quando eles decompõem os restos de plantas e animais mortos?', options: ['Produzir seu próprio alimento', 'Servir de alimento para consumidores primários', 'Devolver nutrientes para o solo', 'Causar doenças em outros seres vivos', 'Fixar a luz do sol para a fotossíntese'], answer: 'Devolver nutrientes para o solo', explanation: 'Fungos e bactérias atuam como decompositores, quebrando a matéria orgânica morta e liberando nutrientes essenciais de volta para o solo, que podem ser usados pelos produtores.', points: 10 },
-            { question: 'Um animal que caça e mata outro para se alimentar pratica uma relação ecológica chamada:', options: ['Parasitismo', 'Mutualismo', 'Competição', 'Predatismo', 'Comensalismo'], answer: 'Predatismo', explanation: 'Predatismo é a relação onde um animal (predador) caça e mata outro (presa) para se alimentar, como uma cobra comendo um coelho.', points: 10 },
-            { question: 'Qual das relações ecológicas abaixo é considerada harmônica, ou seja, ninguém é prejudicado?', options: ['Predatismo', 'Parasitismo', 'Competição', 'Mutualismo', 'Nenhuma das anteriores'], answer: 'Mutualismo', explanation: 'Mutualismo é uma relação harmônica onde ambos os seres se beneficiam e dependem um do outro para sobreviver, como abelhas e flores.', points: 10 },
-            { question: 'As abelhas e as flores são um exemplo de qual tipo de relação ecológica, onde ambas se ajudam e precisam uma da outra?', options: ['Protocooperação', 'Comensalismo', 'Parasitismo', 'Mutualismo', 'Competição'], answer: 'Mutualismo', explanation: 'No mutualismo, ambos os organismos envolvidos se beneficiam da interação e, muitas vezes, dependem um do outro para a sobrevivência, como as abelhas que coletam néctar das flores (benefício) e polinizam as flores (benefício).', points: 10 },
-            { question: 'Um carrapato vivendo no corpo de um cachorro, alimentando-se de seu sangue e prejudicando-o, é um exemplo de:', options: ['Mutualismo', 'Comensalismo', 'Parasitismo', 'Protocooperação', 'Predatismo'], answer: 'Parasitismo', explanation: 'Parasitismo é a relação onde um organismo (parasita, o carrapato) vive no corpo ou na superfície de outro (hospedeiro, o cachorro), obtendo alimento ou abrigo e prejudicando o hospedeiro.', points: 10 },
-            // Microbiologia (10 Pontos)
-            { question: 'Qual das seguintes afirmações sobre bactérias está CORRETA?', options: ['São seres multicelulares e eucariontes.', 'Não são consideradas seres vivos porque não conseguem se reproduzir sozinhas.', 'Muitas delas são essenciais para a digestão e para a produção de iogurtes.', 'Combatemos as doenças causadas por bactérias com vacinas.', 'Reproduzem-se principalmente por invasão de células hospedeiras.'], answer: 'Muitas delas são essenciais para a digestão e para a produção de iogurtes.', explanation: 'Muitas bactérias são benéficas, auxiliando na digestão, na decomposição da matéria e sendo usadas na indústria alimentícia para a produção de alimentos como iogurtes e queijos.', points: 10 },
-            { question: 'Qual a principal característica que leva os vírus a não serem considerados seres vivos por alguns cientistas?', options: ['Eles são muito grandes, maiores que as bactérias.', 'Eles possuem várias células e um núcleo organizado.', 'Eles produzem seu próprio alimento.', 'Eles não conseguem se reproduzir sozinhos.', 'Eles são úteis na produção de iogurtes e queijos.'], answer: 'Eles não conseguem se reproduzir sozinhos.', explanation: 'Os vírus não são considerados seres vivos por muitos porque eles são parasitas intracelulares obrigatórios, o que significa que eles não conseguem se reproduzir ou realizar a maioria das funções vitais sem invadir e usar a maquinaria de uma célula hospedeira.', points: 10 },
-            { question: 'Para ver um microrganismo como uma bactéria ou um vírus, é necessário utilizar:', options: ['Um telescópio', 'Um binóculo', 'O olho nu', 'Um microscópio', 'Uma lente de aumento comum'], answer: 'Um microscópio', explanation: 'O nome "microrganismo" já indica que são organismos muito pequenos. Para vê-los, é necessário um instrumento que amplifique muito a imagem, como um microscópio.', points: 10 },
-            { question: 'As doenças como gripe e COVID-19 são causadas por qual tipo de microrganismo?', options: ['Bactérias', 'Fungos', 'Vírus', 'Protozoários', 'Algas'], answer: 'Vírus', explanation: 'Vírus são os agentes causadores de doenças como a gripe, resfriados, catapora e a COVID-19, pois eles precisam invadir células hospedeiras para se reproduzir e causar a doença.', points: 10 },
-            { question: 'O que são antibióticos e para que servem?', options: ['São substâncias que combatem vírus.', 'São vacinas que previnem doenças.', 'São medicamentos usados para combater infecções bacterianas.', 'São nutrientes que fortalecem o sistema imunológico.', 'São hormônios que regulam o corpo.'], answer: 'São medicamentos usados para combater infecções bacterianas.', explanation: 'Antibióticos são medicamentos projetados especificamente para matar ou inibir o crescimento de bactérias, sendo eficazes no tratamento de infecções bacterianas.', points: 10 },
-            { question: 'Qual dos seguintes itens é um exemplo da utilidade dos fungos para os seres humanos?', options: ['Produção de iogurtes', 'Causar gripe', 'Causar dor de garganta', 'Fabricação de pão (fermento)', 'Agir como decompositores no solo'], answer: 'Fabricação de pão (fermento)', explanation: 'O fermento biológico usado para fazer pão é um tipo de fungo unicelular (levedura) que produz gás carbônico, fazendo a massa crescer.', points: 10 },
-            { question: 'O mofo que cresce em alimentos estragados, como pão ou frutas, é um exemplo de:', options: ['Bactéria benéfica', 'Vírus causador de doença', 'Fungo', 'Alga', 'Microrganismo produtor de energia'], answer: 'Fungo', explanation: 'O mofo é um tipo de fungo, geralmente multicelular, que cresce em ambientes úmidos e se alimenta de matéria orgânica, como alimentos.', points: 10 },
-            // Biologia Celular & Imunologia (20 Pontos)
-            { question: 'A célula é considerada o "tijolinho da vida". Qual organela é responsável por produzir a energia para a célula funcionar, sendo chamada de "usina de força"?', options: ['Ribossomos', 'Núcleo', 'Mitocondrias', 'Complexo de Golgi', 'Retículo Endoplasmático'], answer: 'Mitocondrias', explanation: 'As mitocôndrias são as organelas responsáveis pela respiração celular, processo que gera a maior parte da energia (ATP) necessária para as atividades da célula, por isso são chamadas de "usinas de força".', points: 20 },
-            { question: 'Onde fica guardado o nosso material genético (DNA), o "cérebro" da célula?', options: ['Mitocôndrias', 'Ribossomos', 'Complexo de Golgi', 'Núcleo', 'Retículo Endoplasmático'], answer: 'Núcleo', explanation: 'O núcleo é a organela que contém a maior parte do material genético (DNA) da célula e controla suas atividades, agindo como o "cérebro".', points: 20 },
-            { question: 'Qual organela é responsável por "empacotar" e enviar as proteínas para onde elas precisam ir na célula?', options: ['Ribossomos', 'Mitocôndrias', 'Núcleo', 'Complexo de Golgi', 'Retículo Endoplasmático'], answer: 'Complexo de Golgi', explanation: 'O Complexo de Golgi, ou aparelho de Golgi, tem a função de processar, empacotar e distribuir proteínas e lipídios para outras partes da célula ou para fora dela.', points: 20 },
-            { question: 'Quando um micróbio invasor entra no nosso corpo, qual tipo de célula de defesa é responsável por produzir anticorpos, que são "armas especiais" contra esses invasores?', options: ['Linfócitos T', 'Células de memória', 'Ribossomos', 'Linfócitos B', 'Mitocôndrias'], answer: 'Linfócitos B', explanation: 'Os Linfócitos B são as células do sistema imunológico especializadas em produzir e liberar anticorpos, que são proteínas que se ligam especificamente aos invasores (antígenos) para neutralizá-los.', points: 20 },
-            { question: 'Qual o papel das vacinas para o nosso sistema imunológico?', options: ['Curar doenças que já estão instaladas no corpo.', 'Apresentar o micróbio invasor pela primeira vez para que o corpo não reaja.', 'Eliminar todos os micróbios do corpo de uma vez.', 'Treinar o sistema imunológico para reconhecer e combater um invasor antes que ele cause a doença grave.', 'Fortalecer as mitocôndrias para produzir mais energia.'], answer: 'Treinar o sistema imunológico para reconhecer e combater um invasor antes que ele cause a doença grave.', explanation: 'A vacina age como um "treinamento" para o sistema imunológico. Ela introduz uma forma enfraquecida, morta ou partes de um vírus/bactéria para que o corpo aprenda a reconhecê-lo e produza anticorpos e células de memória, criando imunidade sem causar a doença grave.', points: 20 },
-            { question: 'A capacidade do nosso corpo de ter uma resposta imune mais rápida e forte a um invasor que já apareceu antes é devido à formação de:', options: ['Antibióticos', 'Linfócitos T', 'Células de memória', 'Anticorpos', 'Hormônios'], answer: 'Células de memória', explanation: 'Após o primeiro contato com um patógeno, o sistema imunológico cria "células de memória". Se o mesmo invasor aparecer novamente, essas células permitem uma resposta imune muito mais rápida e eficaz, evitando que a pessoa fique doente ou diminuindo a gravidade da doença.', points: 20 },
-            { question: 'Qual o nome da relação ecológica onde um animal (predador) caça e mata outro animal (presa) para se alimentar?', options: ['Parasitismo', 'Comensalismo', 'Predatismo', 'Mutualismo', 'Competição'], answer: 'Predatismo', explanation: 'Predatismo é a interação onde um organismo (predador) captura e mata outro (presa) para se alimentar.', points: 20 },
-            { question: 'O que significa o termo "imunidade ativa" em relação às vacinas?', options: ['O corpo já estava doente antes de tomar a vacina.', 'O corpo recebeu anticorpos prontos para combater a doença.', 'O corpo foi treinado pela vacina e produziu seus próprios anticorpos e células de memória.', 'O sistema imunológico está inativo.', 'A doença já passou.'], answer: 'O corpo foi treinado pela vacina e produziu seus próprios anticorpos e células de memória.', explanation: 'A imunidade ativa ocorre quando o próprio sistema imunológico de uma pessoa é estimulado (por exemplo, por uma vacina ou uma infecção natural) a produzir seus próprios anticorpos e células de memória, conferindo proteção duradoura.', points: 20 },
-            // Genética (20 Pontos)
-            { question: 'Qual o nome do "livro de receitas gigante" que contém todas as instruções para construir e fazer nosso corpo funcionar, localizado dentro do núcleo das células?', options: ['Gene', 'Cromossomo', 'Proteína', 'DNA', 'Mitocôndria'], answer: 'DNA', explanation: 'O DNA (ácido desoxirribonucleico) é a molécula que armazena todas as informações genéticas, funcionando como um "livro de receitas" para o organismo.', points: 20 },
-            { question: 'Um "pedacinho" da receita do DNA, que contém uma instrução para uma característica específica (como a cor dos olhos), é chamado de:', options: ['Cromossomo', 'Núcleo', 'Proteína', 'Organela', 'Gene'], answer: 'Gene', explanation: 'Um gene é uma sequência específica de DNA que contém a informação para uma característica particular ou para a produção de uma proteína específica.', points: 20 },
-            { question: 'Nós recebemos metade dos nossos cromossomos da nossa mãe e a outra metade do nosso pai. O que são os cromossomos?', options: ['Pequenas fábricas de energia dentro da célula.', 'As proteínas que formam o corpo.', 'Os "capítulos" do livro de DNA, onde o material genético fica organizado.', 'Os microrganismos que causam doenças.', 'As células que produzem anticorpos.'], answer: 'Os "capítulos" do livro de DNA, onde o material genético fica organizado.', explanation: 'Os cromossomos são estruturas organizadas, formadas por DNA enrolado em proteínas, que contêm os genes e são herdados de ambos os pais, sendo como os "capítulos" do manual genético.', points: 20 },
-            { question: 'Se uma característica é determinada por um gene dominante, ela aparecerá mesmo que a pessoa tenha apenas uma cópia desse gene. Como representamos um gene dominante?', options: ['Com uma letra minúscula (ex: a).', 'Com uma letra maiúscula (ex: A).', 'Com números.', 'Com símbolos.', 'A representação não importa, apenas a presença do gene.'], answer: 'Com uma letra maiúscula (ex: A).', explanation: 'Genes dominantes são tradicionalmente representados por letras maiúsculas para indicar que a característica se manifesta mesmo com apenas uma cópia do gene.', points: 20 },
-            { question: 'Um gene recessivo só aparecerá se a pessoa receber duas cópias dele, uma do pai e uma da mãe. Se o gene para olhos castanhos (A) é dominante e para olhos azuis (a) é recessivo, qual combinação de genes resultaria em olhos azuis?', options: ['AA', 'Aa', 'aA', 'aa', 'Apenas se não houver gene para olhos castanhos.'], answer: 'aa', explanation: 'Para que a característica recessiva (olhos azuis) se manifeste, é necessário que a pessoa herde duas cópias do gene recessivo (aa), uma de cada pai.', points: 20 },
-            { question: 'Uma relação ecológica onde os dois seres se ajudam, mas não dependem um do outro para sobreviver, é chamada de:', options: ['Mutualismo', 'Comensalismo', 'Protocooperação', 'Predatismo', 'Competição'], answer: 'Protocooperação', explanation: 'A protocooperação é uma relação harmônica onde ambos os participantes se beneficiam, mas a interação não é essencial para a sobrevivência de nenhum deles, ou seja, eles podem viver separados, como o carangue-jo-eremita e a anêmona.', points: 20 },
-            { question: 'Qual tipo de relação ecológica ocorre quando a rêmora "pega carona" em um tubarão, se alimentando de restos de comida, enquanto o tubarão não é afetado?', options: ['Mutualismo', 'Parasitismo', 'Competição', 'Comensalismo', 'Protocooperação'], answer: 'Comensalismo', explanation: 'No comensalismo, um organismo (a rêmora) se beneficia da interação, enquanto o outro (o tubarão) não é significativamente beneficiado nem prejudicado.', points: 20 },
-            // Conceitos Avançados e Revisão (30 Pontos)
-            { question: 'Qual das seguintes afirmações sobre as células eucariontes que formam nosso corpo está CORRETA?', options: ['São procariontes e não possuem núcleo organizado.', 'São super pequenas e não conseguimos vê-las nem com microscópio.', 'São organizadas e cheias de pequenas "fábricas" chamadas organelas.', 'São os microrganismos que causam a gripe.', 'São os responsáveis por decompor a matéria orgânica.'], answer: 'São organizadas e cheias de pequenas "fábricas" chamadas organelas.', explanation: 'Nossas células são eucariontes, o que significa que possuem um núcleo verdadeiro e diversas organelas membranosas, cada uma com uma função específica, como pequenas "fábricas".', points: 30 },
-            { question: 'Qual organela é responsável por fabricar proteínas dentro da célula?', options: ['Núcleo', 'Mitocôndrias', 'Ribossomos', 'Complexo de Golgi', 'Retículo Endoplasmático'], answer: 'Ribossomos', explanation: 'Os ribossomos são as organelas responsáveis pela síntese de proteínas, lendo as informações contidas no RNA mensageiro.', points: 30 },
-            { question: 'As bactérias se reproduzem muito rápido por um processo onde uma bactéria se divide e vira duas idênticas. Como é chamado esse processo?', options: ['Fissão binária', 'Reprodução sexuada', 'Gemulação', 'Esporulação', 'Divisão meiótica'], answer: 'Fissão binária', explanation: 'A fissão binária é o principal método de reprodução assexuada das bactérias, onde uma célula-mãe se divide em duas células-filhas geneticamente idênticas.', points: 30 },
-            { question: 'Qual o principal objetivo das células de defesa identificarem um invasor e o "mostrarem" para os Linfócitos T?', options: ['Para que o Linfócito T produza mais energia.', 'Para que o Linfócito T guarde essa informação na memória.', 'Para comandar um ataque específico contra o invasor.', 'Para que o invasor se reproduza mais rápido.', 'Para que o invasar fuja do corpo.'], answer: 'Para comandar um ataque específico contra o invasor.', explanation: 'As células apresentadoras de antígenos (células de defesa) mostram partes do invasor aos Linfócitos T para ativá-los, permitindo que eles comandem uma resposta imune coordenada e específica para eliminar o patógeno.', points: 30 },
-            { question: 'Um ecossistema é interligado e um animal pode comer várias coisas e ser comido por vários outros. Essa complexidade é melhor representada por qual conceito?', options: ['Cadeia alimentar linear', 'Relações harmônicas', 'Teia alimentar', 'Níveis tróficos', 'Relações desarmônicas'], answer: 'Teia alimentar', explanation: 'A teia alimentar representa a complexidade de um ecossistema, mostrando todas as cadeias alimentares interconectadas, onde um organismo pode ter múltiplas fontes de alimento e ser consumido por múltiplos predadores.', points: 30 },
-            { question: 'Os seres vivos competem por quais tipos de recursos?', options: ['Amizade e cooperação', 'Comida, água e território', 'Somente parceiros para reprodução', 'Temperatura e clima', 'Apenas pela luz do sol'], answer: 'Comida, água e território', explanation: 'A competição é uma relação desarmônica onde seres vivos disputam recursos limitados e essenciais para a sobrevivência, como comida, água, luz, abrigo e território.', points: 30 },
-            { question: 'Quais são as células do nosso próprio corpo que são destruídas por outras células T quando estão infectadas por um vírus?', options: ['Células de memória', 'Linfócitos B', 'Células hospedeiras infectadas', 'Ribossomos', 'Mitocôndrias'], answer: 'Células hospedeiras infectadas', explanation: 'No sistema imunológico, as células T citotóxicas (um tipo de Linfócito T) são especializadas em identificar e destruir as células do nosso próprio corpo que foram infectadas por vírus, impedindo a replicação viral.', points: 30 },
-            { question: 'Se o gene para cabelo liso (L) é dominante e o gene para cabelo cacheado (l) é recessivo, uma pessoa com genótipo Ll terá qual tipo de cabelo?', options: ['Cabelo liso', 'Cabelo cacheado', 'Cabelo liso com algumas partes cacheadas', 'Não é possível determinar', 'Careca'], answer: 'Cabelo liso', explanation: 'Como o gene L (cabelo liso) é dominante, a presença de apenas uma cópia desse gene (no genótipo Ll) já é suficiente para que a característica de cabelo liso se manifeste.', points: 30 },
-            { question: 'Qual é a função do Retículo Endoplasmático na célula?', options: ['Produzir energia.', 'Guardar o material genético.', 'Empacotar e enviar proteínas.', 'Ajudar a produzir e transportar proteínas e gorduras.', 'Produzir anticorpos.'], answer: 'Ajudar a produzir e transportar proteínas e gorduras.', explanation: 'O Retículo Endoplasmático é uma rede de membranas que desempenha um papel crucial na síntese, dobramento, modificação e transporte de proteínas e lipídios.', points: 30 },
-            { question: 'Qual das seguintes opções NÃO é considerada uma relação desarmônica (negativa -)?', options: ['Predatismo', 'Parasitismo', 'Competição', 'Protocooperação', 'Nenhuma das alternativas acima'], answer: 'Protocooperação', explanation: 'Protocooperação é uma relação harmônica (positiva), onde ambos se beneficiam sem dependência obrigatória.', points: 30 },
-            // Desafio Final (40 Pontos)
-            { question: 'As bactérias procariontes são caracterizadas por:', options: ['Possuírem um núcleo organizado e várias organelas.', 'Não terem um núcleo organizado e serem unicelulares.', 'Serem multicelulares e fotossintetizantes.', 'Não se reproduzirem sozinhas, dependendo de um hospedeiro.', 'Serem menores que os vírus.'], answer: 'Não terem um núcleo organizado e serem unicelulares.', explanation: 'Bactérias são seres unicelulares e procariontes, o que significa que sua célula não possui um núcleo definido por membrana nem outras organelas membranosas.', points: 40 },
-            { question: 'Qual o principal benefício da troca de material genético entre bactérias?', options: ['Aumentar a velocidade da fissão binária.', 'Torná-las mais fracas e mais fáceis de combater.', 'Aumentar sua resistência e força.', 'Fazer com que se tornem multicelulares.', 'Transformá-las em vírus.'], answer: 'Aumentar sua resistência e força.', explanation: 'A troca de material genético entre bactérias é um mecanismo importante que pode conferir a elas novas características, como resistência a antibióticos, tornando-as mais "fortes" e adaptáveis.', points: 40 },
-            { question: 'O que acontece no nosso corpo quando tomamos uma vacina?', options: ['O vírus ou bactéria real causa a doença.', 'Nosso corpo recebe anticorpos prontos.', 'Nosso corpo aprende a reconhecer o invasor e produz suas próprias defesas.', 'As células de memória são desativadas.', 'Os ribossomos param de fabricar proteínas.'], answer: 'Nosso corpo aprende a reconhecer o invasor e produz suas próprias defesas.', explanation: 'A vacina apresenta ao sistema imunológico uma versão inofensiva de um patógeno, permitindo que o corpo "aprenda" a reconhecê-lo e desenvolva uma resposta imune (produção de anticorpos e células de memória) sem adoecer.', points: 40 },
-            { question: 'Qual a organela que funciona como o "cérebro" da célula e guarda o DNA?', options: ['Mitocôndrias', 'Ribossomos', 'Complexo de Golgi', 'Núcleo', 'Retículo Endoplasmático'], answer: 'Núcleo', explanation: 'O núcleo é a organela central que contém o material genético (DNA) e controla todas as atividades celulares, por isso é frequentemente comparado ao "cérebro" da célula.', points: 40 },
-            { question: 'Se o gene para ter sardas (S) é dominante e o gene para não ter sardas (s) é recessivo, qual das seguintes pessoas terá sardas?', options: ['Uma pessoa com genótipo ss', 'Uma pessoa com genótipo Ss', 'Uma pessoa que não tem o gene dominante', 'Uma pessoa com genótipo SSS', 'Apenas pessoas que receberam dois genes recessivos.'], answer: 'Uma pessoa com genótipo Ss', explanation: 'Como o gene S (sardas) é dominante, a presença de apenas uma cópia desse gene (no genótipo Ss) já é suficiente para que a característica de ter sardas se manifeste.', points: 40 },
-            { question: 'Qual das seguintes opções descreve corretamente os "consumidores terciários"?', options: ['São os herbívoros que comem produtores.', 'São os que comem os consumidores secundários.', 'São a base de tudo, produzindo seu próprio alimento.', 'São os fungos e bactérias que decompõem.', 'São os que comem os produtores e os consumidores primários.'], answer: 'São os que comem os consumidores secundários.', explanation: 'Os consumidores terciários se alimentam dos consumidores secundários. Por exemplo, uma águia que come uma cobra, sendo a cobra consumidora secundária e a águia, terciária.', points: 40 },
-            { question: 'As doenças causadas por vírus são combatidas com:', options: ['Antibióticos', 'Vacinas e o sistema imunológico', 'Fungicidas', 'Apenas repouso', 'Vitaminas'], answer: 'Vacinas e o sistema imunológico', explanation: 'A melhor forma de combater doenças virais é prevenindo-as com vacinas, que preparam o sistema imunológico. Uma vez infectado, o próprio sistema imunológico do corpo é o principal defensor.', points: 40 },
-            { question: 'Qual das opções a seguir é uma característica dos fungos?', options: ['São sempre unicelulares e causam gripes.', 'Podem ser unicelulares (leveduras) ou multicelulares (cogumelos).', 'São procariontes e produzem seu próprio alimento.', 'Não são considerados seres vivos.', 'Se reproduzem por fissão binária.'], answer: 'Podem ser unicelulares (leveduras) ou multicelulares (cogumelos).', explanation: 'Fungos apresentam grande diversidade, incluindo formas unicelulares, como as leveduras (usadas no pão), e formas multicelulares, como os cogumelos.', points: 40 },
-            { question: 'O que acontece se o mesmo invasor (vírus ou bactéria) que o sistema imunológico já combateu antes aparecer de novo?', options: ['O corpo não terá nenhuma reação.', 'A doença será mais grave.', 'A resposta será muito mais rápida e forte.', 'Serão necessários antibióticos mais fortes.', 'O invasor será transformado em uma célula de memória.'], answer: 'A resposta será muito mais rápida e forte.', explanation: 'Graças às células de memória formadas no primeiro contato, o sistema imunológico reconhece o invasor mais rapidamente e monta uma resposta imune de forma muito mais eficiente e intensa.', points: 40 },
-            { question: 'O que é o DNA em termos de genética?', options: ['Uma organela que produz energia.', 'Um pedacinho da receita para uma característica específica.', 'Um livro de receitas gigante com todas as instruções para o corpo.', 'Um tipo de proteína que forma os músculos.', 'Um microrganismo que causa doenças genéticas.'], answer: 'Um livro de receitas gigante com todas as instruções para o corpo.', explanation: 'O DNA é a molécula que contém o código genético completo de um organismo, funcionando como um "livro de receitas" com todas as instruções para o desenvolvimento, funcionamento e reprodução.', points: 40 }
+            // Sistema Digestório (10 Pontos)
+            { question: 'Qual órgão do sistema digestório é responsável por triturar os alimentos com os dentes e iniciar a digestão com a saliva?', options: ['Estômago', 'Intestino delgado', 'Boca', 'Esôfago', 'Fígado'], answer: 'Boca', explanation: 'A boca, com os dentes e a saliva, é o primeiro local onde os alimentos são triturados e a digestão química começa.', points: 10 },
+            { question: 'Qual é a principal função do esôfago no processo digestório?', options: ['Absorver nutrientes', 'Triturar os alimentos', 'Levar a comida ao estômago através de movimentos peristálticos', 'Produzir ácido clorídrico', 'Formar as fezes'], answer: 'Levar a comida ao estômago através de movimentos peristálticos', explanation: 'O esôfago é um tubo muscular que usa movimentos de onda (peristaltismo) para empurrar o alimento até o estômago.', points: 10 },
+            { question: 'Quando mastigamos um alimento na boca, que tipo de digestão está acontecendo principalmente?', options: ['Digestão química', 'Absorção', 'Eliminação', 'Digestão mecânica', 'Digestão enzimática'], answer: 'Digestão mecânica', explanation: 'A mastigação é um exemplo de digestão mecânica, onde o alimento é fisicamente quebrado em pedaços menores.', points: 10 },
+            { question: 'Onde ocorre a principal absorção dos nutrientes, graças às vilosidades?', options: ['Estômago', 'Intestino grosso', 'Esôfago', 'Intestino delgado', 'Fígado'], answer: 'Intestino delgado', explanation: 'O intestino delgado possui pequenas dobras chamadas vilosidades que aumentam muito a área de superfície para absorver nutrientes.', points: 10 },
+            { question: 'Qual órgão produz a bile, que ajuda na digestão das gorduras?', options: ['Pâncreas', 'Estômago', 'Intestino grosso', 'Fígado', 'Boca'], answer: 'Fígado', explanation: 'O fígado produz a bile, uma substância que ajuda a quebrar as gorduras em pequenas partículas para facilitar a digestão.', points: 10 },
+            { question: 'Qual tipo de alimento leva mais tempo para ser digerido pelo corpo?', options: ['Líquidos', 'Frutas', 'Verduras', 'Carnes', 'Gorduras'], answer: 'Gorduras', explanation: 'Gorduras são os alimentos que levam mais tempo para serem digeridos, de 6 a 8 horas, pois exigem um processo mais complexo.', points: 10 },
+
+            // Sistema Respiratório (10 Pontos)
+            { question: 'Qual a principal função do sistema respiratório?', options: ['Quebrar alimentos', 'Transportar sangue', 'Realizar trocas gasosas entre o corpo e o ambiente', 'Produzir hormônios', 'Eliminar fezes'], answer: 'Realizar trocas gasosas entre o corpo e o ambiente', explanation: 'O sistema respiratório capta oxigênio e elimina gás carbônico.', points: 10 },
+            { question: 'Em qual parte do sistema respiratório estão as cordas vocais, responsáveis pela produção do som da voz?', options: ['Faringe', 'Traqueia', 'Brônquios', 'Laringe', 'Alvéolos'], answer: 'Laringe', explanation: 'A laringe contém as cordas vocais, que vibram com a passagem do ar para produzir a voz.', points: 10 },
+            { question: 'Onde acontecem as trocas gasosas, ou seja, a troca de oxigênio por gás carbônico nos pulmões?', options: ['Traqueia', 'Brônquios', 'Bronquíolos', 'Alvéolos', 'Faringe'], answer: 'Alvéolos', explanation: 'Os alvéolos são pequenas bolsas nos pulmões, com paredes muito finas, onde o oxigênio entra no sangue e o gás carbônico sai.', points: 10 },
+            { question: 'O que acontece com o diafragma e os pulmões durante a inspiração?', options: ['O diafragma sobe e os pulmões se contraem', 'O diafragma desce e os pulmões se expandem', 'O diafragma fica parado e os pulmões se contraem', 'O diafragma sobe e os pulmões se expandem', 'O diafragma desce e os pulmões ficam parados'], answer: 'O diafragma desce e os pulmões se expandem', explanation: 'Durante a inspiração, o diafragma se contrai e desce, o que aumenta o espaço nos pulmões e permite que o ar entre.', points: 10 },
+            { question: 'Qual o nome do processo de troca de oxigênio por gás carbônico que ocorre nos alvéolos pulmonares?', options: ['Digestão', 'Absorção', 'Excreção', 'Hematose', 'Circulação'], answer: 'Hematose', explanation: 'Hematose é o nome específico dado à troca de gases (oxigênio e gás carbônico) entre os alvéolos e o sangue.', points: 10 },
+            { question: 'Qual a frequência respiratória normal em uma pessoa adulta em repouso?', options: ['5 a 10 respirações por minuto', '12 a 20 respirações por minuto', '25 a 30 respirações por minuto', '30 a 40 respirações por minuto', 'Mais de 40 respirações por minuto'], answer: '12 a 20 respirações por minuto', explanation: 'Essa é a faixa considerada normal para adultos saudáveis em repouso.', points: 10 },
+            
+            // Relação Respiração, Digestão e Energia (20 Pontos)
+            { question: 'Qual a substância que a digestão quebra dos carboidratos para ser usada como "combustível" nas células?', options: ['Proteína', 'Gordura', 'Glicose', 'Água', 'Sais minerais'], answer: 'Glicose', explanation: 'Os carboidratos são quebrados em glicose, que é a principal fonte de energia para as células do corpo.', points: 20 },
+            { question: 'Para o corpo produzir energia, quais duas substâncias principais ele combina dentro das células?', options: ['Água e gás carbônico', 'Proteína e gordura', 'Glicose e oxigênio', 'Sais minerais e vitaminas', 'Fibra e água'], answer: 'Glicose e oxigênio', explanation: 'A glicose (do alimento) e o oxigênio (do ar) são combinados nas células para produzir energia.', points: 20 },
+            { question: 'Onde ocorre o processo de respiração celular, que produz energia para o corpo?', options: ['Na boca', 'No estômago', 'Nas mitocôndrias das células', 'Nos pulmões', 'Nos rins'], answer: 'Nas mitocôndrias das células', explanation: 'As mitocôndrias são como as "usinas de energia" das células, onde a glicose e o oxigênio são transformados em energia (ATP).', points: 20 },
+            { question: 'Além de energia, quais são os outros produtos da respiração celular que precisam ser eliminados do corpo?', options: ['Proteínas e vitaminas', 'Carboidratos e gorduras', 'Gás carbônico e água', 'Cálcio e ferro', 'Oxigênio e glicose'], answer: 'Gás carbônico e água', explanation: 'O gás carbônico é eliminado pelos pulmões e a água é eliminada pela urina e suor.', points: 20 },
+
+            // Sistema Circulatório (20 Pontos)
+            { question: 'Qual a principal função do sistema circulatório?', options: ['Produzir alimentos para o corpo', 'Filtrar o ar que respiramos', 'Transportar sangue, nutrientes, oxigênio e resíduos por todo o corpo', 'Quebrar moléculas grandes em pequenas', 'Formar as fezes'], answer: 'Transportar sangue, nutrientes, oxigênio e resíduos por todo o corpo', explanation: 'O sistema circulatório é a rede de transporte do corpo.', points: 20 },
+            { question: 'Quantas cavidades tem o coração humano?', options: ['Duas', 'Três', 'Quatro', 'Cinco', 'Seis'], answer: 'Quatro', explanation: 'O coração humano tem dois átrios (superiores) e dois ventrículos (inferiores).', points: 20 },
+            { question: 'Qual componente do sangue é responsável por transportar o oxigênio através da hemoglobina?', options: ['Plasma', 'Glóbulos brancos', 'Plaquetas', 'Glóbulos vermelhos', 'Água'], answer: 'Glóbulos vermelhos', explanation: 'Os glóbulos vermelhos contêm hemoglobina, que se liga ao oxigênio para transportá-lo.', points: 20 },
+            { question: 'Quais vasos sanguíneos levam sangue do coração para o corpo (sangue geralmente oxigenado)?', options: ['Veias', 'Capilares', 'Artérias', 'Linfáticos', 'Túbulos'], answer: 'Artérias', explanation: 'As artérias são vasos que transportam sangue rico em oxigênio do coração para todas as partes do corpo.', points: 20 },
+            { question: 'Onde ocorrem as trocas de substâncias (nutrientes e gases) entre o sangue e as células do corpo?', options: ['Artérias grandes', 'Veias grandes', 'Capilares', 'Coração', 'Pulmões'], answer: 'Capilares', explanation: 'Os capilares são vasos sanguíneos muito finos, onde as paredes são tão finas que permitem a troca de oxigênio, nutrientes e resíduos com as células.', points: 20 },
+            { question: 'Qual tipo de circulação leva o sangue do coração para os pulmões e de volta ao coração para ser oxigenado?', options: ['Circulação sistêmica', 'Circulação dupla', 'Circulação pulmonar', 'Circulação portal', 'Circulação linfática'], answer: 'Circulação pulmonar', explanation: 'A circulação pulmonar é o caminho do sangue do coração para os pulmões (onde pega oxigênio) e de volta ao coração.', points: 20 },
+            
+            // Transporte de Nutrientes e Gases (30 Pontos)
+            { question: 'Onde o oxigênio se liga para ser transportado dos pulmões para todas as células do corpo?', options: ['No plasma', 'Nos glóbulos brancos', 'Na hemoglobina dos glóbulos vermelhos', 'Nas plaquetas', 'Na água'], answer: 'Na hemoglobina dos glóbulos vermelhos', explanation: 'A hemoglobina, uma proteína presente nos glóbulos vermelhos, é a principal transportadora de oxigênio.', points: 30 },
+            { question: 'O gás carbônico, produto da respiração celular, é transportado das células para os pulmões para ser eliminado através de qual processo?', options: ['Inspiração', 'Digestão', 'Expiração', 'Absorção', 'Coagulação'], answer: 'Expiração', explanation: 'O gás carbônico é um resíduo da respiração celular e é eliminado do corpo quando expiramos (soltamos o ar).', points: 30 },
+            { question: 'Qual mecanismo de transporte é responsável pelo movimento de gases, como oxigênio e gás carbônico, através das membranas celulares, sem gastar energia?', options: ['Transporte ativo', 'Osmose', 'Pressão sanguínea', 'Difusão', 'Circulação'], answer: 'Difusão', explanation: 'A difusão é o movimento de substâncias de uma área de maior concentração para uma de menor concentração, sem gasto de energia, como acontece com o oxigênio e o gás carbônico.', points: 30 },
+
+            // Excreção de Resíduos Celulares (30 Pontos)
+            { question: 'Qual órgão é o principal responsável por filtrar o sangue e produzir a urina, eliminando resíduos como ureia?', options: ['Fígado', 'Pulmões', 'Pele', 'Rins', 'Intestino grosso'], answer: 'Rins', explanation: 'Os rins filtram o sangue, removendo substâncias indesejáveis e formando a urina.', points: 30 },
+            { question: 'Além de oxigenar o sangue, qual outro resíduo os pulmões eliminam do corpo a cada expiração?', options: ['Ureia', 'Ácido úrico', 'Gás carbônico', 'Excesso de sais', 'Gorduras'], answer: 'Gás carbônico', explanation: 'Os pulmões eliminam o gás carbônico, que é um produto da respiração celular, a cada expiração.', points: 30 },
+            { question: 'Como a pele contribui para a eliminação de resíduos do corpo, além de ajudar a regular a temperatura?', options: ['Produzindo bile', 'Filtrando o sangue', 'Eliminando água, sais e pequenas quantidades de ureia pelo suor', 'Quebrando toxinas', 'Formando fezes'], answer: 'Eliminando água, sais e pequenas quantidades de ureia pelo suor', explanation: 'O suor ajuda a liberar excesso de água, sais e algumas toxinas.', points: 30 },
+            { question: 'Qual órgão é responsável por processar toxinas e transformá-las em substâncias menos nocivas, ajudando na desintoxicação do corpo?', options: ['Rins', 'Pulmões', 'Fígado', 'Pele', 'Coração'], answer: 'Fígado', explanation: 'O fígado tem um papel crucial na desintoxicação, processando medicamentos, álcool e outras substâncias tóxicas.', points: 30 },
+
+            // Grupos Alimentares e Funções dos Nutrientes (30 Pontos)
+            { question: 'Qual a principal função dos carboidratos no nosso corpo?', options: ['Construção de músculos', 'Energia imediata para as células', 'Isolamento térmico', 'Absorção de vitaminas lipossolúveis', 'Formação de anticorpos'], answer: 'Energia imediata para as células', explanation: 'Os carboidratos são a principal e mais rápida fonte de energia para o corpo, especialmente para o cérebro.', points: 30 },
+            { question: 'Qual a principal função das proteínas no nosso corpo?', options: ['Fornecer energia concentrada', 'Ser a principal fonte de energia para o cérebro', 'Construção e reparação de tecidos, como músculos e pele', 'Regular a temperatura corporal', 'Ajudar na absorção de vitaminas A, D, E, K'], answer: 'Construção e reparação de tecidos, como músculos e pele', explanation: 'As proteínas são os "tijolos" do corpo, essenciais para crescer, reparar e manter os tecidos.', points: 30 },
+            { question: 'As gorduras têm diversas funções. Qual das opções abaixo NÃO é uma função principal das gorduras?', options: ['Energia concentrada', 'Isolamento térmico', 'Proteção de órgãos', 'Absorção de vitaminas lipossolúveis', 'Ser a base para a formação de anticorpos'], answer: 'Ser a base para a formação de anticorpos', explanation: 'A formação de anticorpos é uma função das proteínas, parte do sistema de defesa do corpo.', points: 30 },
+            { question: 'As vitaminas são micronutrientes importantes. Qual característica NÃO se aplica às vitaminas?', options: ['São necessárias em pequenas quantidades', 'São produzidas em grandes quantidades pelo corpo', 'Devem vir da alimentação', 'Têm funções reguladoras em reações metabólicas', 'Podem ser lipossolúveis ou hidrossolúveis'], answer: 'São produzidas em grandes quantidades pelo corpo', explanation: 'A maioria das vitaminas não é produzida pelo corpo (ou é produzida em quantidades insuficientes) e, por isso, precisamos obtê-las através da alimentação.', points: 30 },
+            { question: 'Qual mineral é fundamental para a formação dos ossos e dentes, além de ser importante para a contração muscular?', options: ['Ferro', 'Sódio', 'Potássio', 'Zinco', 'Cálcio'], answer: 'Cálcio', explanation: 'O cálcio é o mineral mais abundante no corpo e é essencial para a estrutura dos ossos e dentes, além de ser crucial para a contração dos músculos.', points: 30 },
+            { question: 'Em termos de porcentagem das calorias totais diárias, qual grupo de nutrientes deve ser consumido em maior quantidade?', options: ['Proteínas (10-35%)', 'Gorduras (20-35%)', 'Carboidratos (45-65%)', 'Vitaminas', 'Sais Minerais'], answer: 'Carboidratos (45-65%)', explanation: 'Os carboidratos são a principal fonte de energia e devem compor a maior parte das calorias diárias.', points: 30 },
+
+            // Calorias e Alimentação Equilibrada (40 Pontos)
+            { question: 'O que são calorias nos alimentos?', options: ['Unidades de medida do sabor', 'Unidades de medida da energia fornecida', 'Unidades de medida do peso', 'Unidades de medida da cor', 'Unidades de medida da quantidade de água'], answer: 'Unidades de medida da energia fornecida', explanation: 'As calorias indicam a quantidade de energia que um alimento pode fornecer ao corpo.', points: 40 },
+            { question: 'Qual o principal objetivo de uma alimentação equilibrada, além de contar calorias?', options: ['Comer sempre a mesma coisa', 'Comer apenas um tipo de alimento', 'Considerar a qualidade e variedade dos nutrientes', 'Comer o máximo possível para ter energia', 'Fazer dietas muito restritivas'], answer: 'Considerar a qualidade e variedade dos nutrientes', explanation: 'Uma alimentação equilibrada foca em fornecer todos os nutrientes necessários, de diferentes grupos alimentares e com boa qualidade.', points: 40 },
+            { question: 'O que determina o peso corporal de uma pessoa?', options: ['Apenas a idade', 'Apenas o sexo', 'O balanço entre calorias consumidas e calorias gastas', 'Apenas o tipo de alimento que come', 'Apenas o quanto dorme'], answer: 'O balanço entre calorias consumidas e calorias gastas', explanation: 'Se consumimos mais calorias do que gastamos, ganhamos peso; se gastamos mais do que consumimos, perdemos peso.', points: 40 },
+
+            // Alimentação Saudável e Personalizada (40 Pontos)
+            { question: 'Por que não existe uma dieta única ideal para todas as pessoas?', options: ['Porque todas as pessoas gostam dos mesmos alimentos', 'Porque o corpo de cada pessoa tem necessidades nutricionais específicas', 'Porque dietas personalizadas são mais caras', 'Porque é mais fácil seguir uma dieta única', 'Porque apenas atletas precisam de dietas específicas'], answer: 'Porque o corpo de cada pessoa tem necessidades nutricionais específicas', explanation: 'Fatores como idade, sexo, genética, nível de atividade física e condições de saúde fazem com que as necessidades variem.', points: 40 },
+
+            // Obesidade, Desnutrição e Alimentação Inadequada (40 Pontos)
+            { question: 'A obesidade é o acúmulo excessivo de gordura corporal. Qual das opções abaixo NÃO é uma consequência para a saúde relacionada à obesidade?', options: ['Doenças cardiovasculares', 'Diabetes tipo 2', 'Problemas articulares', 'Aumento da imunidade', 'Aspectos psicológicos negativos'], answer: 'Aumento da imunidade', explanation: 'Na verdade, a obesidade pode levar a uma diminuição da imunidade e inflamação crônica, não a um aumento.', points: 40 },
+            { question: 'Qual é um dos sinais e consequências da desnutrição em crianças?', options: ['Crescimento adequado e peso normal para a idade', 'Aumento da energia e capacidade física', 'Maior susceptibilidade a infecções e crescimento inadequado', 'Melhora da concentração e aprendizagem', 'Aumento da imunidade'], answer: 'Maior susceptibilidade a infecções e crescimento inadequado', explanation: 'A falta de nutrientes enfraquece o sistema imunológico e impede o crescimento normal.', points: 40 },
+
+            // Hábitos de Vida Saudáveis (40 Pontos)
+            { question: 'Qual é uma prática importante da alimentação consciente?', options: ['Comer rapidamente sem prestar atenção', 'Pular refeições regularmente', 'Mastigar adequadamente e comer devagar', 'Beber pouca água durante o dia', 'Comer sempre os mesmos alimentos'], answer: 'Mastigar adequadamente e comer devagar', explanation: 'Comer devagar e mastigar bem ajuda a perceber a saciedade e a desfrutar mais do alimento.', points: 40 },
+            { question: 'Para ter um sono de qualidade, qual das ações abaixo é recomendada?', options: ['Usar dispositivos eletrônicos na cama antes de dormir', 'Dormir e acordar em horários diferentes a cada dia', 'Manter o quarto iluminado e barulhento', 'Ter uma rotina relaxante antes de dormir', 'Dormir poucas horas para ter mais tempo'], answer: 'Ter uma rotina relaxante antes de dormir', explanation: 'Atividades como ler ou tomar um banho morno ajudam o corpo a se preparar para o sono.', points: 40 },
+            { question: 'Qual estratégia ajuda na gestão do estresse?', options: ['Acumular tarefas e não planejar o tempo', 'Isolar-se de amigos e familiares', 'Praticar técnicas de relaxamento como respiração profunda', 'Deixar problemas sem conversar sobre eles', 'Aumentar o consumo de cafeína'], answer: 'Praticar técnicas de relaxamento como respiração profunda', explanation: 'Técnicas de relaxamento ajudam a acalmar a mente e o corpo, reduzindo o estresse.', points: 40 },
+            { question: 'Qual hábito é importante para a prevenção de doenças e manutenção da saúde?', options: ['Evitar lavar as mãos', 'Não realizar exames médicos preventivos', 'Manter o calendário vacinal atualizado', 'Consumir álcool em excesso', 'Não usar protetor solar'], answer: 'Manter o calendário vacinal atualizado', explanation: 'A vacinação protege contra diversas doenças infecciosas.', points: 40 },
+
+            // Importância da Atividade Física (40 Pontos)
+            { question: 'Como a atividade física regular beneficia o sistema cardiovascular?', options: ['Aumenta a pressão arterial', 'Torna o coração menos eficiente', 'Fortalece o coração e melhora a circulação', 'Aumenta o risco de doenças cardíacas', 'Diminui o fluxo sanguíneo'], answer: 'Fortalece o coração e melhora a circulação', explanation: 'O coração se torna uma bomba mais forte, e a circulação do sangue melhora.', points: 40 },
+            { question: 'Qual o benefício da atividade física para o sistema respiratório?', options: ['Diminui a capacidade pulmonar', 'Piora a oxigenação do sangue', 'Fortalece os músculos respiratórios e aumenta o volume de ar inspirado', 'Aumenta o cansaço em atividades diárias', 'Prejudica a limpeza pulmonar'], answer: 'Fortalece os músculos respiratórios e aumenta o volume de ar inspirado', explanation: 'Exercícios tornam os pulmões mais eficientes, permitindo captar mais oxigênio e fortalecendo os músculos que ajudam a respirar.', points: 40 },
+            { question: 'Qual o benefício da atividade física para os ossos e músculos?', options: ['Diminui a densidade óssea', 'Reduz a força muscular', 'Aumenta a resistência e força muscular, tornando os ossos mais fortes', 'Piora a coordenação motora', 'Aumenta o risco de lesões'], answer: 'Aumenta a resistência e força muscular, tornando os ossos mais fortes', explanation: 'O exercício fortalece tanto os músculos quanto os ossos, tornando-os mais resistentes.', points: 40 },
+            { question: 'A prática de exercícios físicos tem benefícios psicológicos importantes. Qual é um deles?', options: ['Aumento do estresse', 'Piora do humor e da autoestima', 'Redução do estresse e liberação de hormônios do bem-estar', 'Diminuição da memória e concentração', 'Piora da qualidade do sono'], answer: 'Redução do estresse e liberação de hormônios do bem-estar', explanation: 'O exercício libera endorfinas, que são hormônios que promovem a sensação de bem-estar e reduzem o estresse.', points: 40 },
+
+            // Avaliação Crítica de Dietas e Rotinas (40 Pontos)
+            { question: 'Ao avaliar informações sobre dietas e saúde, qual é um sinal de alerta que indica que uma dieta pode ser duvidosa?', options: ['Promessas de resultados rápidos e "milagrosos" sem esforço', 'Baseada em estudos científicos controlados', 'Recomendação de consumir alimentos variados', 'Foco em mudanças graduais e sustentáveis', 'Orientação para buscar profissionais qualificados'], answer: 'Promessas de resultados rápidos e "milagrosos" sem esforço', explanation: 'Dietas que prometem perda de peso muito rápida, "curas" para várias condições ou resultados sem qualquer esforço são geralmente irrealistas e podem ser prejudiciais.', points: 40 }
         ];
 
         // --- FUNÇÕES GERAIS E DE TELA ---
@@ -442,7 +461,7 @@
             player = new YT.Player('player', {
                 height: '100%',
                 width: '100%',
-                videoId: '5sHWLjGBsjU',
+                videoId: 'k0W2mmr4oEQ',
                 playerVars: { 'playsinline': 1, 'rel': 0, 'controls': 1 },
                 events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
             });
@@ -560,12 +579,12 @@
 
             if (selectedOption === correctAnswer) {
                 score += currentQuestion.points;
-                showFeedback(`+${currentQuestion.points} Pontos! 🎉`, explanation, true, true);
+                showFeedback(`+${currentQuestion.points} Pontos! 🎉`, explanation, true);
                 e.target.classList.remove('bg-white/10', 'border-violet-400', 'hover:bg-violet-500/30');
                 e.target.classList.add('bg-green-500', 'border-green-700', 'text-white');
             } else {
                 const wrongFeedbackMsg = `Ops! A resposta certa é "${correctAnswer}".`;
-                showFeedback(wrongFeedbackMsg, explanation, false, false);
+                showFeedback(wrongFeedbackMsg, explanation, false);
                  e.target.classList.remove('bg-white/10', 'border-violet-400', 'hover:bg-violet-500/30');
                 e.target.classList.add('bg-red-500', 'border-red-700', 'text-white');
             }
@@ -574,17 +593,11 @@
             currentQuestionIndex++;
         }
 
-        function showFeedback(message, explanation, isCorrect, allowBonusButton = false) {
+        function showFeedback(message, explanation, isCorrect) {
             feedbackEl.innerHTML = `
                 <strong class="block text-3xl mb-2">${message}</strong>
                 <span class="text-xl mt-2 block font-normal">${explanation}</span>
                 <button id="feedback-continue-btn" class="mt-6 w-full bg-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/30 transition option-button border-white/30">Continuar →</button>
-                ${(isCorrect && allowBonusButton) ? `
-                <button id="generate-bonus-btn" class="mt-4 w-full bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-yellow-500/50 transition option-button border-amber-700 flex items-center justify-center">
-                    <span class="button-text">✨ Gerar Pergunta Bônus</span>
-                    <div class="loader hidden ml-3"></div>
-                </button>
-                ` : ''}
             `;
             
             const colorClass = isCorrect ? 'bg-gradient-to-br from-green-400 to-emerald-600' : 'bg-gradient-to-br from-red-400 to-rose-600';
@@ -602,11 +615,6 @@
             };
 
             document.getElementById('feedback-continue-btn').addEventListener('click', hideAndContinue, { once: true });
-
-            if (isCorrect && allowBonusButton) {
-                const currentQuestion = shuffledQuestions[currentQuestionIndex];
-                document.getElementById('generate-bonus-btn').addEventListener('click', () => generateBonusQuestion(currentQuestion), { once: true });
-            }
         }
         
         function getMotivationalMessage(finalScore) {
@@ -619,120 +627,6 @@
             }
         }
         
-        function showMessageModal(title, message) {
-            feedbackEl.innerHTML = `
-                <strong class="block text-3xl mb-2">${title}</strong>
-                <span class="text-xl mt-2 block font-normal">${message}</span>
-                <button id="feedback-continue-btn" class="mt-6 w-full bg-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/30 transition option-button border-white/30">OK</button>
-            `;
-            
-            feedbackEl.className = `fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm:p-8 rounded-2xl text-white text-2xl font-bold shadow-2xl w-11/12 max-w-sm text-center transition-all duration-300 ease-in-out bg-gradient-to-br from-gray-600 to-gray-800 opacity-0 scale-90`;
-            
-            feedbackEl.classList.remove('pointer-events-none');
-            
-            requestAnimationFrame(() => {
-                feedbackEl.classList.remove('opacity-0', 'scale-90');
-            });
-
-            const hideModal = () => {
-                feedbackEl.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
-            };
-
-            document.getElementById('feedback-continue-btn').addEventListener('click', hideModal, { once: true });
-        }
-
-        async function generateBonusQuestion(previousQuestion) {
-            const bonusButton = document.getElementById('generate-bonus-btn');
-            toggleButtonLoader(bonusButton, true);
-
-            const apiKey = ""; // A chave da API será fornecida pelo ambiente
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            const systemPrompt = `Você é um tutor de ciências para alunos do 5º ano no Brasil. Crie uma nova pergunta de múltipla escolha com 4 opções, baseada na pergunta anterior. A nova pergunta deve ter um nível de dificuldade semelhante. A resposta deve ser um objeto JSON com a seguinte estrutura: { "question": "...", "options": ["...", "...", "...", "..."], "answer": "...", "explanation": "...", "points": 25 }`;
-            const userQuery = `Aqui está a pergunta anterior para referência. Pergunta: "${previousQuestion.question}"`;
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-            };
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                const candidate = result.candidates?.[0];
-                const textResponse = candidate?.content?.parts?.[0]?.text;
-
-                if (textResponse) {
-                    const cleanedJsonString = textResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-                    const bonusQuestion = JSON.parse(cleanedJsonString);
-
-                    if (bonusQuestion.question && bonusQuestion.options && bonusQuestion.answer && bonusQuestion.explanation && bonusQuestion.points) {
-                        displayBonusQuestion(bonusQuestion);
-                    } else {
-                        throw new Error("Formato de JSON inválido recebido da API.");
-                    }
-                } else {
-                    throw new Error("Resposta da API vazia ou mal formatada.");
-                }
-
-            } catch (error) {
-                console.error("Erro ao gerar pergunta bônus:", error);
-                showMessageModal('Erro', 'Desculpe, não foi possível gerar uma pergunta bônus agora. Tente novamente mais tarde.');
-                if (bonusButton) {
-                    toggleButtonLoader(bonusButton, false);
-                    bonusButton.style.display = 'none';
-                }
-            }
-        }
-
-        function displayBonusQuestion(bonusQuestion) {
-            feedbackEl.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
-            
-            questionContainer.textContent = bonusQuestion.question;
-            optionsContainer.innerHTML = '';
-
-            const shuffledOptions = shuffleArray([...bonusQuestion.options]);
-
-            shuffledOptions.forEach(option => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-button', 'w-full', 'bg-gradient-to-r', 'from-amber-500', 'to-yellow-500', 'text-white', 'text-lg', 'sm:text-xl', 'font-bold', 'py-4', 'px-2', 'rounded-xl', 'shadow-lg', 'border-amber-700', 'hover:from-amber-600', 'hover:to-yellow-600');
-                button.addEventListener('click', (e) => handleBonusAnswer(e, bonusQuestion));
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        function handleBonusAnswer(e, bonusQuestion) {
-            const selectedOption = e.target.textContent;
-            const correctAnswer = bonusQuestion.answer;
-            const explanation = bonusQuestion.explanation;
-
-            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
-
-            if (selectedOption === correctAnswer) {
-                score += bonusQuestion.points;
-                showFeedback(`✨ Bônus! +${bonusQuestion.points} Pontos! 🚀`, explanation, true, false);
-                e.target.className = 'option-button w-full bg-green-500 border-green-700 text-white text-lg sm:text-xl font-bold py-4 px-2 rounded-xl shadow-lg';
-            } else {
-                const wrongFeedbackMsg = `Ops! A resposta certa era "${correctAnswer}".`;
-                showFeedback(wrongFeedbackMsg, explanation, false, false);
-                e.target.className = 'option-button w-full bg-red-500 border-red-700 text-white text-lg sm:text-xl font-bold py-4 px-2 rounded-xl shadow-lg';
-            }
-            
-            updateScoreDisplay();
-        }
-
         // --- LÓGICA DE FIM DE JOGO E RANKING ---
         function resetGame() {
             score = 0;
