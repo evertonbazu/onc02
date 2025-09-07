@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONC - Parte 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0c0a1a;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
+            background-size: 20px 20px;
+            touch-action: manipulation;
+            overflow-y: auto;
+        }
+        .main-container {
+            background: linear-gradient(170deg, #1e1b4b 0%, #0c0a1a 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .option-button {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s;
+            border-bottom-width: 4px;
+        }
+        .option-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .option-button:active {
+            transform: translateY(-1px);
+        }
+        #feedback {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .screen {
+            min-height: 100vh;
+            width: 100%;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .video-container { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            overflow: hidden; 
+            max-width: 100%; 
+            background: #000; 
+            border-radius: 1rem; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+        }
+        .video-container iframe { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+        }
+        .loader {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #a78bfa;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="main-container">
+
+    <!-- Tela de Login / Cadastro -->
+    <div id="login-screen" class="screen">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl shadow-xl max-w-md w-full text-center text-white">
+            <div id="login-form">
+                <h1 class="text-3xl sm:text-4xl font-bold text-violet-300">Acessar Jogo</h1>
+                <p class="text-violet-200 mt-4">Digite seu código e senha para entrar.</p>
+                <input type="text" id="login-code" placeholder="Seu código" class="mt-8 w-full text-xl p-3 rounded-xl border-2 border-violet-400 bg-white/10 placeholder-violet-300">
+                <input type="password" id="login-password" placeholder="Sua senha" class="mt-4 w-full text-xl p-3 rounded-xl border-2 border-violet-400 bg-white/10 placeholder-violet-300">
+                <button id="login-button" class="mt-6 w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-2xl font-bold py-3 rounded-xl shadow-lg hover:shadow-purple-500/50 transition flex items-center justify-center option-button border-purple-700">
+                    <span class="button-text">Entrar</span>
+                    <div class="loader hidden ml-3"></div>
+                </button>
+                <p id="login-message" class="text-red-400 mt-4 h-5"></p>
+                <div class="flex space-x-2 mt-2">
+                    <button id="go-to-register" class="w-1/2 text-violet-300 hover:underline">Não tenho cadastro</button>
+                    <button id="view-ranking-button" class="w-1/2 text-violet-300 hover:underline">Ver Ranking</button>
+                </div>
+            </div>
+            <div id="register-form" class="hidden">
+                <h1 class="text-3xl sm:text-4xl font-bold text-violet-300">Criar Cadastro</h1>
+                <p class="text-violet-200 mt-4">Preencha seus dados para criar um acesso.</p>
+                <input type="text" id="register-name" placeholder="Nome Completo" class="mt-8 w-full text-xl p-3 rounded-xl border-2 border-violet-400 bg-white/10 placeholder-violet-300">
+                <select id="register-class" class="mt-4 w-full text-xl p-3 rounded-xl border-2 border-violet-400 bg-white/10 placeholder-violet-300">
+                    <option value="" class="text-black">Selecione sua turma</option>
+                    <option value="5º Ano A" class="text-black">5º Ano A</option>
+                    <option value="5º Ano B" class="text-black">5º Ano B</option>
+                </select>
+                <input type="text" id="register-code" placeholder="Crie um código de acesso" class="mt-4 w-full text-xl p-3 rounded-xl border-2 border-violet-400 bg-white/10 placeholder-violet-300">
+                <input type="password" id="register-password" placeholder="Crie uma senha" class="mt-4 w-full text-xl p-3 rounded-xl border-2 border-violet-400 bg-white/10 placeholder-violet-300">
+                <button id="register-button" class="mt-6 w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-2xl font-bold py-3 rounded-xl shadow-lg hover:shadow-green-500/50 transition flex items-center justify-center option-button border-green-700">
+                    <span class="button-text">Cadastrar e Entrar</span>
+                    <div class="loader hidden ml-3"></div>
+                </button>
+                <p id="register-message" class="text-red-400 mt-4 h-5"></p>
+                <button id="back-to-login" class="mt-2 text-violet-300 hover:underline">Já tenho cadastro</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela do Vídeo -->
+    <div id="video-screen" class="screen hidden">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl shadow-xl max-w-3xl w-full text-center text-white">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-violet-300">Vamos aprender!</h2>
+            <p class="text-base sm:text-lg text-violet-200 mt-2 mb-4">Assista ao vídeo para revisar e ganhar até 1000 pontos!</p>
+            <div class="mb-4 bg-white/10 rounded-full px-6 py-2 inline-block">
+                <span class="text-2xl font-semibold text-violet-200">Pontos: <span class="score-display">0</span></span>
+            </div>
+            <div class="video-container">
+                <div id="player"></div>
+            </div>
+            <button id="continue-btn" class="mt-8 w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-2xl sm:text-3xl font-bold py-3 sm:py-4 rounded-xl shadow-lg transition transform hover:shadow-green-500/50 opacity-50 cursor-not-allowed option-button border-green-700" disabled>
+                Ir para o Jogo!
+            </button>
+            <button id="skip-video-btn" class="mt-2 text-gray-400 hover:text-gray-200 hover:underline">Pular vídeo (não ganha pontos)</button>
+        </div>
+    </div>
+
+    <!-- Tela do Jogo (Quiz) -->
+    <div id="game-screen" class="screen hidden">
+        <div class="w-full max-w-4xl">
+             <header class="text-center mb-4 sm:mb-8 w-full">
+                 <div class="flex justify-center items-center w-full">
+                     <div class="glass-card rounded-full px-4 sm:px-6 py-2">
+                         <span class="text-xl sm:text-2xl font-semibold text-violet-200">Pontos: <span class="score-display">0</span></span>
+                     </div>
+                 </div>
+                 <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4" style="text-shadow: 0 0 15px rgba(167, 139, 250, 0.7);">
+                     ONC - Parte 2
+                 </h1>
+                  <p class="text-lg sm:text-xl text-violet-300 mt-2">Olá, <span id="player-firstname"></span>! Escolha a resposta certa.</p>
+             </header>
+            <main class="w-full glass-card p-6 sm:p-8 rounded-2xl shadow-xl text-center">
+                <div id="question-container" class="mb-6 sm:mb-8 text-xl sm:text-2xl md:text-3xl font-semibold text-white min-h-[6rem] flex items-center justify-center">
+                    <!-- A pergunta aparecerá aqui -->
+                </div>
+                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <!-- As opções aparecerão aqui -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Tela Final (Game Over) -->
+    <div id="end-screen" class="screen hidden">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl shadow-xl max-w-3xl w-full text-center my-8 text-white">
+            <div id="end-screen-content">
+                <h1 class="text-3xl sm:text-4xl font-bold text-violet-300">Fim de Jogo!</h1>
+                <p id="final-message" class="text-lg text-violet-200 mt-4 font-semibold"></p>
+                <p id="bonus-message" class="text-lg text-green-400 mt-2 font-semibold"></p>
+                <div class="flex justify-center items-center my-6 text-violet-200">
+                    <div class="text-xl"><strong>Pontos:</strong> <span id="final-score">0</span></div>
+                </div>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-violet-300 mt-6 mb-4">Ranking (Top 100)</h2>
+            <div class="overflow-y-auto h-64 bg-white/5 rounded-lg">
+                <table class="w-full text-left">
+                    <thead class="bg-white/10 sticky top-0">
+                        <tr>
+                            <th class="p-2">#</th>
+                            <th class="p-2">Nome</th>
+                            <th class="p-2">Pontos</th>
+                            <th class="p-2">Turma</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-body">
+                        <tr><td colspan="4" class="p-8 text-center"><div class="loader mx-auto"></div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <button id="play-again-button" class="mt-8 w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-2xl sm:text-3xl font-bold py-3 rounded-xl shadow-lg hover:shadow-yellow-500/50 transition option-button border-yellow-700">
+                Jogar Novamente
+            </button>
+            <button id="back-from-ranking-button" class="mt-8 w-full bg-gray-500 text-white text-2xl sm:text-3xl font-bold py-3 rounded-xl shadow-lg hover:bg-gray-600 transition hidden option-button border-gray-700">
+                Voltar
+            </button>
+        </div>
+    </div>
+
+    <div id="feedback" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm:p-8 rounded-2xl text-white text-2xl font-bold shadow-2xl opacity-0 pointer-events-none w-11/12 max-w-sm text-center"></div>
+    
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvzdtou17UCu8lmOFg9fxVEaLg1FnWcvexCYUZzqNLcUhiE6mZW_OkxeeI874AXZRT/exec';
+        const NOME_DESTE_JOGO = "ONC - PARTE2";
+
+        // --- ELEMENTOS DO DOM ---
+        const loginScreen = document.getElementById('login-screen');
+        const videoScreen = document.getElementById('video-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const endScreen = document.getElementById('end-screen');
+        const continueBtn = document.getElementById('continue-btn');
+        const skipVideoBtn = document.getElementById('skip-video-btn');
+        const loginForm = document.getElementById('login-form');
+        const loginCodeInput = document.getElementById('login-code');
+        const loginPasswordInput = document.getElementById('login-password');
+        const loginButton = document.getElementById('login-button');
+        const loginMessage = document.getElementById('login-message');
+        const goToRegisterButton = document.getElementById('go-to-register');
+        const registerForm = document.getElementById('register-form');
+        const registerNameInput = document.getElementById('register-name');
+        const registerClassInput = document.getElementById('register-class');
+        const registerCodeInput = document.getElementById('register-code');
+        const registerPasswordInput = document.getElementById('register-password');
+        const registerButton = document.getElementById('register-button');
+        const registerMessage = document.getElementById('register-message');
+        const backToLoginButton = document.getElementById('back-to-login');
+        const playerFirstNameEl = document.getElementById('player-firstname');
+        const finalMessageEl = document.getElementById('final-message');
+        const viewRankingButton = document.getElementById('view-ranking-button');
+        const backFromRankingButton = document.getElementById('back-from-ranking-button');
+        const playAgainButton = document.getElementById('play-again-button');
+        const endScreenContent = document.getElementById('end-screen-content');
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackEl = document.getElementById('feedback');
+        const bonusMessageEl = document.getElementById('bonus-message');
+
+        // --- ESTADO DO JOGO ---
+        let score = 0;
+        let startTime;
+        let loggedInUser = null;
+        let videoPointsInvalidated = false;
+        let currentQuestionIndex = 0;
+        let shuffledQuestions = [];
+
+        // --- BANCO DE PERGUNTAS COM EXPLICAÇÕES E PONTOS ---
+        const questions = [
+            // Ecologia & Cadeias Alimentares (10 Pontos)
+            { question: 'Qual a principal diferença entre uma cadeia alimentar e uma teia alimentar?', options: ['A cadeia alimentar é mais complexa e interligada, enquanto a teia alimentar é linear.', 'A teia alimentar é linear e tem uma só direção, enquanto a cadeia alimentar mostra um cardápio completo.', 'A cadeia alimentar é um prato único e linear, e a teia alimentar é um cardápio completo e interligado.', 'A teia alimentar envolve apenas produtores, e a cadeia alimentar inclui todos os níveis.', 'Cadeia e teia alimentar são a mesma coisa, apenas com nomes diferentes.'], answer: 'A cadeia alimentar é um prato único e linear, e a teia alimentar é um cardápio completo e interligado.', explanation: 'A cadeia alimentar é como um prato único, linear e com uma só direção de energia. A teia alimentar é como um cardápio completo, mostrando uma rede de cadeias alimentares conectadas, sendo mais complexa e interligada.', points: 10 },
+            { question: 'Na base de uma cadeia alimentar, encontramos os seres vivos que produzem seu próprio alimento. Como eles são chamados?', options: ['Consumidores primários', 'Decompositores', 'Produtores', 'Consumidores secundários', 'Predadores'], answer: 'Produtores', explanation: 'Produtores, como plantas e algas, são a base da cadeia alimentar porque produzem seu próprio alimento, geralmente usando a luz do sol.', points: 10 },
+            { question: 'Um coelho que come uma cenoura é um exemplo de qual tipo de consumidor?', options: ['Consumidor secundário', 'Produtor', 'Decompositor', 'Consumidor primário', 'Consumidor terciário'], answer: 'Consumidor primário', explanation: 'O coelho é um herbívoro, alimentando-se diretamente do produtor (a cenoura), o que o classifica como consumidor primário.', points: 10 },
+            { question: 'Qual o papel dos fungos e bactérias na natureza, quando eles decompõem os restos de plantas e animais mortos?', options: ['Produzir seu próprio alimento', 'Servir de alimento para consumidores primários', 'Devolver nutrientes para o solo', 'Causar doenças em outros seres vivos', 'Fixar a luz do sol para a fotossíntese'], answer: 'Devolver nutrientes para o solo', explanation: 'Fungos e bactérias atuam como decompositores, quebrando a matéria orgânica morta e liberando nutrientes essenciais de volta para o solo, que podem ser usados pelos produtores.', points: 10 },
+            { question: 'Um animal que caça e mata outro para se alimentar pratica uma relação ecológica chamada:', options: ['Parasitismo', 'Mutualismo', 'Competição', 'Predatismo', 'Comensalismo'], answer: 'Predatismo', explanation: 'Predatismo é a relação onde um animal (predador) caça e mata outro (presa) para se alimentar, como uma cobra comendo um coelho.', points: 10 },
+            { question: 'Qual das relações ecológicas abaixo é considerada harmônica, ou seja, ninguém é prejudicado?', options: ['Predatismo', 'Parasitismo', 'Competição', 'Mutualismo', 'Nenhuma das anteriores'], answer: 'Mutualismo', explanation: 'Mutualismo é uma relação harmônica onde ambos os seres se beneficiam e dependem um do outro para sobreviver, como abelhas e flores.', points: 10 },
+            { question: 'As abelhas e as flores são um exemplo de qual tipo de relação ecológica, onde ambas se ajudam e precisam uma da outra?', options: ['Protocooperação', 'Comensalismo', 'Parasitismo', 'Mutualismo', 'Competição'], answer: 'Mutualismo', explanation: 'No mutualismo, ambos os organismos envolvidos se beneficiam da interação e, muitas vezes, dependem um do outro para a sobrevivência, como as abelhas que coletam néctar das flores (benefício) e polinizam as flores (benefício).', points: 10 },
+            { question: 'Um carrapato vivendo no corpo de um cachorro, alimentando-se de seu sangue e prejudicando-o, é um exemplo de:', options: ['Mutualismo', 'Comensalismo', 'Parasitismo', 'Protocooperação', 'Predatismo'], answer: 'Parasitismo', explanation: 'Parasitismo é a relação onde um organismo (parasita, o carrapato) vive no corpo ou na superfície de outro (hospedeiro, o cachorro), obtendo alimento ou abrigo e prejudicando o hospedeiro.', points: 10 },
+            // Microbiologia (10 Pontos)
+            { question: 'Qual das seguintes afirmações sobre bactérias está CORRETA?', options: ['São seres multicelulares e eucariontes.', 'Não são consideradas seres vivos porque não conseguem se reproduzir sozinhas.', 'Muitas delas são essenciais para a digestão e para a produção de iogurtes.', 'Combatemos as doenças causadas por bactérias com vacinas.', 'Reproduzem-se principalmente por invasão de células hospedeiras.'], answer: 'Muitas delas são essenciais para a digestão e para a produção de iogurtes.', explanation: 'Muitas bactérias são benéficas, auxiliando na digestão, na decomposição da matéria e sendo usadas na indústria alimentícia para a produção de alimentos como iogurtes e queijos.', points: 10 },
+            { question: 'Qual a principal característica que leva os vírus a não serem considerados seres vivos por alguns cientistas?', options: ['Eles são muito grandes, maiores que as bactérias.', 'Eles possuem várias células e um núcleo organizado.', 'Eles produzem seu próprio alimento.', 'Eles não conseguem se reproduzir sozinhos.', 'Eles são úteis na produção de iogurtes e queijos.'], answer: 'Eles não conseguem se reproduzir sozinhos.', explanation: 'Os vírus não são considerados seres vivos por muitos porque eles são parasitas intracelulares obrigatórios, o que significa que eles não conseguem se reproduzir ou realizar a maioria das funções vitais sem invadir e usar a maquinaria de uma célula hospedeira.', points: 10 },
+            { question: 'Para ver um microrganismo como uma bactéria ou um vírus, é necessário utilizar:', options: ['Um telescópio', 'Um binóculo', 'O olho nu', 'Um microscópio', 'Uma lente de aumento comum'], answer: 'Um microscópio', explanation: 'O nome "microrganismo" já indica que são organismos muito pequenos. Para vê-los, é necessário um instrumento que amplifique muito a imagem, como um microscópio.', points: 10 },
+            { question: 'As doenças como gripe e COVID-19 são causadas por qual tipo de microrganismo?', options: ['Bactérias', 'Fungos', 'Vírus', 'Protozoários', 'Algas'], answer: 'Vírus', explanation: 'Vírus são os agentes causadores de doenças como a gripe, resfriados, catapora e a COVID-19, pois eles precisam invadir células hospedeiras para se reproduzir e causar a doença.', points: 10 },
+            { question: 'O que são antibióticos e para que servem?', options: ['São substâncias que combatem vírus.', 'São vacinas que previnem doenças.', 'São medicamentos usados para combater infecções bacterianas.', 'São nutrientes que fortalecem o sistema imunológico.', 'São hormônios que regulam o corpo.'], answer: 'São medicamentos usados para combater infecções bacterianas.', explanation: 'Antibióticos são medicamentos projetados especificamente para matar ou inibir o crescimento de bactérias, sendo eficazes no tratamento de infecções bacterianas.', points: 10 },
+            { question: 'Qual dos seguintes itens é um exemplo da utilidade dos fungos para os seres humanos?', options: ['Produção de iogurtes', 'Causar gripe', 'Causar dor de garganta', 'Fabricação de pão (fermento)', 'Agir como decompositores no solo'], answer: 'Fabricação de pão (fermento)', explanation: 'O fermento biológico usado para fazer pão é um tipo de fungo unicelular (levedura) que produz gás carbônico, fazendo a massa crescer.', points: 10 },
+            { question: 'O mofo que cresce em alimentos estragados, como pão ou frutas, é um exemplo de:', options: ['Bactéria benéfica', 'Vírus causador de doença', 'Fungo', 'Alga', 'Microrganismo produtor de energia'], answer: 'Fungo', explanation: 'O mofo é um tipo de fungo, geralmente multicelular, que cresce em ambientes úmidos e se alimenta de matéria orgânica, como alimentos.', points: 10 },
+            // Biologia Celular & Imunologia (20 Pontos)
+            { question: 'A célula é considerada o "tijolinho da vida". Qual organela é responsável por produzir a energia para a célula funcionar, sendo chamada de "usina de força"?', options: ['Ribossomos', 'Núcleo', 'Mitocondrias', 'Complexo de Golgi', 'Retículo Endoplasmático'], answer: 'Mitocondrias', explanation: 'As mitocôndrias são as organelas responsáveis pela respiração celular, processo que gera a maior parte da energia (ATP) necessária para as atividades da célula, por isso são chamadas de "usinas de força".', points: 20 },
+            { question: 'Onde fica guardado o nosso material genético (DNA), o "cérebro" da célula?', options: ['Mitocôndrias', 'Ribossomos', 'Complexo de Golgi', 'Núcleo', 'Retículo Endoplasmático'], answer: 'Núcleo', explanation: 'O núcleo é a organela que contém a maior parte do material genético (DNA) da célula e controla suas atividades, agindo como o "cérebro".', points: 20 },
+            { question: 'Qual organela é responsável por "empacotar" e enviar as proteínas para onde elas precisam ir na célula?', options: ['Ribossomos', 'Mitocôndrias', 'Núcleo', 'Complexo de Golgi', 'Retículo Endoplasmático'], answer: 'Complexo de Golgi', explanation: 'O Complexo de Golgi, ou aparelho de Golgi, tem a função de processar, empacotar e distribuir proteínas e lipídios para outras partes da célula ou para fora dela.', points: 20 },
+            { question: 'Quando um micróbio invasor entra no nosso corpo, qual tipo de célula de defesa é responsável por produzir anticorpos, que são "armas especiais" contra esses invasores?', options: ['Linfócitos T', 'Células de memória', 'Ribossomos', 'Linfócitos B', 'Mitocôndrias'], answer: 'Linfócitos B', explanation: 'Os Linfócitos B são as células do sistema imunológico especializadas em produzir e liberar anticorpos, que são proteínas que se ligam especificamente aos invasores (antígenos) para neutralizá-los.', points: 20 },
+            { question: 'Qual o papel das vacinas para o nosso sistema imunológico?', options: ['Curar doenças que já estão instaladas no corpo.', 'Apresentar o micróbio invasor pela primeira vez para que o corpo não reaja.', 'Eliminar todos os micróbios do corpo de uma vez.', 'Treinar o sistema imunológico para reconhecer e combater um invasor antes que ele cause a doença grave.', 'Fortalecer as mitocôndrias para produzir mais energia.'], answer: 'Treinar o sistema imunológico para reconhecer e combater um invasor antes que ele cause a doença grave.', explanation: 'A vacina age como um "treinamento" para o sistema imunológico. Ela introduz uma forma enfraquecida, morta ou partes de um vírus/bactéria para que o corpo aprenda a reconhecê-lo e produza anticorpos e células de memória, criando imunidade sem causar a doença grave.', points: 20 },
+            { question: 'A capacidade do nosso corpo de ter uma resposta imune mais rápida e forte a um invasor que já apareceu antes é devido à formação de:', options: ['Antibióticos', 'Linfócitos T', 'Células de memória', 'Anticorpos', 'Hormônios'], answer: 'Células de memória', explanation: 'Após o primeiro contato com um patógeno, o sistema imunológico cria "células de memória". Se o mesmo invasor aparecer novamente, essas células permitem uma resposta imune muito mais rápida e eficaz, evitando que a pessoa fique doente ou diminuindo a gravidade da doença.', points: 20 },
+            { question: 'Qual o nome da relação ecológica onde um animal (predador) caça e mata outro animal (presa) para se alimentar?', options: ['Parasitismo', 'Comensalismo', 'Predatismo', 'Mutualismo', 'Competição'], answer: 'Predatismo', explanation: 'Predatismo é a interação onde um organismo (predador) captura e mata outro (presa) para se alimentar.', points: 20 },
+            { question: 'O que significa o termo "imunidade ativa" em relação às vacinas?', options: ['O corpo já estava doente antes de tomar a vacina.', 'O corpo recebeu anticorpos prontos para combater a doença.', 'O corpo foi treinado pela vacina e produziu seus próprios anticorpos e células de memória.', 'O sistema imunológico está inativo.', 'A doença já passou.'], answer: 'O corpo foi treinado pela vacina e produziu seus próprios anticorpos e células de memória.', explanation: 'A imunidade ativa ocorre quando o próprio sistema imunológico de uma pessoa é estimulado (por exemplo, por uma vacina ou uma infecção natural) a produzir seus próprios anticorpos e células de memória, conferindo proteção duradoura.', points: 20 },
+            // Genética (20 Pontos)
+            { question: 'Qual o nome do "livro de receitas gigante" que contém todas as instruções para construir e fazer nosso corpo funcionar, localizado dentro do núcleo das células?', options: ['Gene', 'Cromossomo', 'Proteína', 'DNA', 'Mitocôndria'], answer: 'DNA', explanation: 'O DNA (ácido desoxirribonucleico) é a molécula que armazena todas as informações genéticas, funcionando como um "livro de receitas" para o organismo.', points: 20 },
+            { question: 'Um "pedacinho" da receita do DNA, que contém uma instrução para uma característica específica (como a cor dos olhos), é chamado de:', options: ['Cromossomo', 'Núcleo', 'Proteína', 'Organela', 'Gene'], answer: 'Gene', explanation: 'Um gene é uma sequência específica de DNA que contém a informação para uma característica particular ou para a produção de uma proteína específica.', points: 20 },
+            { question: 'Nós recebemos metade dos nossos cromossomos da nossa mãe e a outra metade do nosso pai. O que são os cromossomos?', options: ['Pequenas fábricas de energia dentro da célula.', 'As proteínas que formam o corpo.', 'Os "capítulos" do livro de DNA, onde o material genético fica organizado.', 'Os microrganismos que causam doenças.', 'As células que produzem anticorpos.'], answer: 'Os "capítulos" do livro de DNA, onde o material genético fica organizado.', explanation: 'Os cromossomos são estruturas organizadas, formadas por DNA enrolado em proteínas, que contêm os genes e são herdados de ambos os pais, sendo como os "capítulos" do manual genético.', points: 20 },
+            { question: 'Se uma característica é determinada por um gene dominante, ela aparecerá mesmo que a pessoa tenha apenas uma cópia desse gene. Como representamos um gene dominante?', options: ['Com uma letra minúscula (ex: a).', 'Com uma letra maiúscula (ex: A).', 'Com números.', 'Com símbolos.', 'A representação não importa, apenas a presença do gene.'], answer: 'Com uma letra maiúscula (ex: A).', explanation: 'Genes dominantes são tradicionalmente representados por letras maiúsculas para indicar que a característica se manifesta mesmo com apenas uma cópia do gene.', points: 20 },
+            { question: 'Um gene recessivo só aparecerá se a pessoa receber duas cópias dele, uma do pai e uma da mãe. Se o gene para olhos castanhos (A) é dominante e para olhos azuis (a) é recessivo, qual combinação de genes resultaria em olhos azuis?', options: ['AA', 'Aa', 'aA', 'aa', 'Apenas se não houver gene para olhos castanhos.'], answer: 'aa', explanation: 'Para que a característica recessiva (olhos azuis) se manifeste, é necessário que a pessoa herde duas cópias do gene recessivo (aa), uma de cada pai.', points: 20 },
+            { question: 'Uma relação ecológica onde os dois seres se ajudam, mas não dependem um do outro para sobreviver, é chamada de:', options: ['Mutualismo', 'Comensalismo', 'Protocooperação', 'Predatismo', 'Competição'], answer: 'Protocooperação', explanation: 'A protocooperação é uma relação harmônica onde ambos os participantes se beneficiam, mas a interação não é essencial para a sobrevivência de nenhum deles, ou seja, eles podem viver separados, como o carangue-jo-eremita e a anêmona.', points: 20 },
+            { question: 'Qual tipo de relação ecológica ocorre quando a rêmora "pega carona" em um tubarão, se alimentando de restos de comida, enquanto o tubarão não é afetado?', options: ['Mutualismo', 'Parasitismo', 'Competição', 'Comensalismo', 'Protocooperação'], answer: 'Comensalismo', explanation: 'No comensalismo, um organismo (a rêmora) se beneficia da interação, enquanto o outro (o tubarão) não é significativamente beneficiado nem prejudicado.', points: 20 },
+            // Conceitos Avançados e Revisão (30 Pontos)
+            { question: 'Qual das seguintes afirmações sobre as células eucariontes que formam nosso corpo está CORRETA?', options: ['São procariontes e não possuem núcleo organizado.', 'São super pequenas e não conseguimos vê-las nem com microscópio.', 'São organizadas e cheias de pequenas "fábricas" chamadas organelas.', 'São os microrganismos que causam a gripe.', 'São os responsáveis por decompor a matéria orgânica.'], answer: 'São organizadas e cheias de pequenas "fábricas" chamadas organelas.', explanation: 'Nossas células são eucariontes, o que significa que possuem um núcleo verdadeiro e diversas organelas membranosas, cada uma com uma função específica, como pequenas "fábricas".', points: 30 },
+            { question: 'Qual organela é responsável por fabricar proteínas dentro da célula?', options: ['Núcleo', 'Mitocôndrias', 'Ribossomos', 'Complexo de Golgi', 'Retículo Endoplasmático'], answer: 'Ribossomos', explanation: 'Os ribossomos são as organelas responsáveis pela síntese de proteínas, lendo as informações contidas no RNA mensageiro.', points: 30 },
+            { question: 'As bactérias se reproduzem muito rápido por um processo onde uma bactéria se divide e vira duas idênticas. Como é chamado esse processo?', options: ['Fissão binária', 'Reprodução sexuada', 'Gemulação', 'Esporulação', 'Divisão meiótica'], answer: 'Fissão binária', explanation: 'A fissão binária é o principal método de reprodução assexuada das bactérias, onde uma célula-mãe se divide em duas células-filhas geneticamente idênticas.', points: 30 },
+            { question: 'Qual o principal objetivo das células de defesa identificarem um invasor e o "mostrarem" para os Linfócitos T?', options: ['Para que o Linfócito T produza mais energia.', 'Para que o Linfócito T guarde essa informação na memória.', 'Para comandar um ataque específico contra o invasor.', 'Para que o invasor se reproduza mais rápido.', 'Para que o invasar fuja do corpo.'], answer: 'Para comandar um ataque específico contra o invasor.', explanation: 'As células apresentadoras de antígenos (células de defesa) mostram partes do invasor aos Linfócitos T para ativá-los, permitindo que eles comandem uma resposta imune coordenada e específica para eliminar o patógeno.', points: 30 },
+            { question: 'Um ecossistema é interligado e um animal pode comer várias coisas e ser comido por vários outros. Essa complexidade é melhor representada por qual conceito?', options: ['Cadeia alimentar linear', 'Relações harmônicas', 'Teia alimentar', 'Níveis tróficos', 'Relações desarmônicas'], answer: 'Teia alimentar', explanation: 'A teia alimentar representa a complexidade de um ecossistema, mostrando todas as cadeias alimentares interconectadas, onde um organismo pode ter múltiplas fontes de alimento e ser consumido por múltiplos predadores.', points: 30 },
+            { question: 'Os seres vivos competem por quais tipos de recursos?', options: ['Amizade e cooperação', 'Comida, água e território', 'Somente parceiros para reprodução', 'Temperatura e clima', 'Apenas pela luz do sol'], answer: 'Comida, água e território', explanation: 'A competição é uma relação desarmônica onde seres vivos disputam recursos limitados e essenciais para a sobrevivência, como comida, água, luz, abrigo e território.', points: 30 },
+            { question: 'Quais são as células do nosso próprio corpo que são destruídas por outras células T quando estão infectadas por um vírus?', options: ['Células de memória', 'Linfócitos B', 'Células hospedeiras infectadas', 'Ribossomos', 'Mitocôndrias'], answer: 'Células hospedeiras infectadas', explanation: 'No sistema imunológico, as células T citotóxicas (um tipo de Linfócito T) são especializadas em identificar e destruir as células do nosso próprio corpo que foram infectadas por vírus, impedindo a replicação viral.', points: 30 },
+            { question: 'Se o gene para cabelo liso (L) é dominante e o gene para cabelo cacheado (l) é recessivo, uma pessoa com genótipo Ll terá qual tipo de cabelo?', options: ['Cabelo liso', 'Cabelo cacheado', 'Cabelo liso com algumas partes cacheadas', 'Não é possível determinar', 'Careca'], answer: 'Cabelo liso', explanation: 'Como o gene L (cabelo liso) é dominante, a presença de apenas uma cópia desse gene (no genótipo Ll) já é suficiente para que a característica de cabelo liso se manifeste.', points: 30 },
+            { question: 'Qual é a função do Retículo Endoplasmático na célula?', options: ['Produzir energia.', 'Guardar o material genético.', 'Empacotar e enviar proteínas.', 'Ajudar a produzir e transportar proteínas e gorduras.', 'Produzir anticorpos.'], answer: 'Ajudar a produzir e transportar proteínas e gorduras.', explanation: 'O Retículo Endoplasmático é uma rede de membranas que desempenha um papel crucial na síntese, dobramento, modificação e transporte de proteínas e lipídios.', points: 30 },
+            { question: 'Qual das seguintes opções NÃO é considerada uma relação desarmônica (negativa -)?', options: ['Predatismo', 'Parasitismo', 'Competição', 'Protocooperação', 'Nenhuma das alternativas acima'], answer: 'Protocooperação', explanation: 'Protocooperação é uma relação harmônica (positiva), onde ambos se beneficiam sem dependência obrigatória.', points: 30 },
+            // Desafio Final (40 Pontos)
+            { question: 'As bactérias procariontes são caracterizadas por:', options: ['Possuírem um núcleo organizado e várias organelas.', 'Não terem um núcleo organizado e serem unicelulares.', 'Serem multicelulares e fotossintetizantes.', 'Não se reproduzirem sozinhas, dependendo de um hospedeiro.', 'Serem menores que os vírus.'], answer: 'Não terem um núcleo organizado e serem unicelulares.', explanation: 'Bactérias são seres unicelulares e procariontes, o que significa que sua célula não possui um núcleo definido por membrana nem outras organelas membranosas.', points: 40 },
+            { question: 'Qual o principal benefício da troca de material genético entre bactérias?', options: ['Aumentar a velocidade da fissão binária.', 'Torná-las mais fracas e mais fáceis de combater.', 'Aumentar sua resistência e força.', 'Fazer com que se tornem multicelulares.', 'Transformá-las em vírus.'], answer: 'Aumentar sua resistência e força.', explanation: 'A troca de material genético entre bactérias é um mecanismo importante que pode conferir a elas novas características, como resistência a antibióticos, tornando-as mais "fortes" e adaptáveis.', points: 40 },
+            { question: 'O que acontece no nosso corpo quando tomamos uma vacina?', options: ['O vírus ou bactéria real causa a doença.', 'Nosso corpo recebe anticorpos prontos.', 'Nosso corpo aprende a reconhecer o invasor e produz suas próprias defesas.', 'As células de memória são desativadas.', 'Os ribossomos param de fabricar proteínas.'], answer: 'Nosso corpo aprende a reconhecer o invasor e produz suas próprias defesas.', explanation: 'A vacina apresenta ao sistema imunológico uma versão inofensiva de um patógeno, permitindo que o corpo "aprenda" a reconhecê-lo e desenvolva uma resposta imune (produção de anticorpos e células de memória) sem adoecer.', points: 40 },
+            { question: 'Qual a organela que funciona como o "cérebro" da célula e guarda o DNA?', options: ['Mitocôndrias', 'Ribossomos', 'Complexo de Golgi', 'Núcleo', 'Retículo Endoplasmático'], answer: 'Núcleo', explanation: 'O núcleo é a organela central que contém o material genético (DNA) e controla todas as atividades celulares, por isso é frequentemente comparado ao "cérebro" da célula.', points: 40 },
+            { question: 'Se o gene para ter sardas (S) é dominante e o gene para não ter sardas (s) é recessivo, qual das seguintes pessoas terá sardas?', options: ['Uma pessoa com genótipo ss', 'Uma pessoa com genótipo Ss', 'Uma pessoa que não tem o gene dominante', 'Uma pessoa com genótipo SSS', 'Apenas pessoas que receberam dois genes recessivos.'], answer: 'Uma pessoa com genótipo Ss', explanation: 'Como o gene S (sardas) é dominante, a presença de apenas uma cópia desse gene (no genótipo Ss) já é suficiente para que a característica de ter sardas se manifeste.', points: 40 },
+            { question: 'Qual das seguintes opções descreve corretamente os "consumidores terciários"?', options: ['São os herbívoros que comem produtores.', 'São os que comem os consumidores secundários.', 'São a base de tudo, produzindo seu próprio alimento.', 'São os fungos e bactérias que decompõem.', 'São os que comem os produtores e os consumidores primários.'], answer: 'São os que comem os consumidores secundários.', explanation: 'Os consumidores terciários se alimentam dos consumidores secundários. Por exemplo, uma águia que come uma cobra, sendo a cobra consumidora secundária e a águia, terciária.', points: 40 },
+            { question: 'As doenças causadas por vírus são combatidas com:', options: ['Antibióticos', 'Vacinas e o sistema imunológico', 'Fungicidas', 'Apenas repouso', 'Vitaminas'], answer: 'Vacinas e o sistema imunológico', explanation: 'A melhor forma de combater doenças virais é prevenindo-as com vacinas, que preparam o sistema imunológico. Uma vez infectado, o próprio sistema imunológico do corpo é o principal defensor.', points: 40 },
+            { question: 'Qual das opções a seguir é uma característica dos fungos?', options: ['São sempre unicelulares e causam gripes.', 'Podem ser unicelulares (leveduras) ou multicelulares (cogumelos).', 'São procariontes e produzem seu próprio alimento.', 'Não são considerados seres vivos.', 'Se reproduzem por fissão binária.'], answer: 'Podem ser unicelulares (leveduras) ou multicelulares (cogumelos).', explanation: 'Fungos apresentam grande diversidade, incluindo formas unicelulares, como as leveduras (usadas no pão), e formas multicelulares, como os cogumelos.', points: 40 },
+            { question: 'O que acontece se o mesmo invasor (vírus ou bactéria) que o sistema imunológico já combateu antes aparecer de novo?', options: ['O corpo não terá nenhuma reação.', 'A doença será mais grave.', 'A resposta será muito mais rápida e forte.', 'Serão necessários antibióticos mais fortes.', 'O invasor será transformado em uma célula de memória.'], answer: 'A resposta será muito mais rápida e forte.', explanation: 'Graças às células de memória formadas no primeiro contato, o sistema imunológico reconhece o invasor mais rapidamente e monta uma resposta imune de forma muito mais eficiente e intensa.', points: 40 },
+            { question: 'O que é o DNA em termos de genética?', options: ['Uma organela que produz energia.', 'Um pedacinho da receita para uma característica específica.', 'Um livro de receitas gigante com todas as instruções para o corpo.', 'Um tipo de proteína que forma os músculos.', 'Um microrganismo que causa doenças genéticas.'], answer: 'Um livro de receitas gigante com todas as instruções para o corpo.', explanation: 'O DNA é a molécula que contém o código genético completo de um organismo, funcionando como um "livro de receitas" com todas as instruções para o desenvolvimento, funcionamento e reprodução.', points: 40 }
+        ];
+
+        // --- FUNÇÕES GERAIS E DE TELA ---
+        function showScreen(screenToShow) {
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.add('hidden'));
+            screenToShow.classList.remove('hidden');
+        }
+
+        function toggleButtonLoader(button, show) {
+            const buttonText = button.querySelector('.button-text');
+            const loader = button.querySelector('.loader');
+            if (buttonText && loader) {
+                buttonText.style.display = show ? 'none' : 'inline';
+                loader.style.display = show ? 'inline-block' : 'none';
+            }
+            button.disabled = show;
+        }
+
+        async function callAppsScript(action, data) {
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    redirect: 'follow',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8', },
+                    body: JSON.stringify({ action, ...data })
+                });
+                if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
+                return await response.json();
+            } catch (error) {
+                console.error("Erro ao contatar o Apps Script:", error);
+                return { status: 'error', message: 'Falha de comunicação. Verifique a publicação do script e sua conexão.' };
+            }
+        }
+        
+        function capitalizeName(name) {
+            return name.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        function handleSuccessfulLogin(userData) {
+            const firstName = userData.name.split(' ')[0];
+            loggedInUser = { ...userData, firstName };
+            sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+            playerFirstNameEl.textContent = firstName;
+            showScreen(videoScreen);
+        }
+
+        // --- LÓGICA DE LOGIN E CADASTRO ---
+        loginButton.addEventListener('click', async () => {
+            const code = loginCodeInput.value.trim();
+            const password = loginPasswordInput.value.trim();
+            loginMessage.textContent = '';
+            if (!code || !password) {
+                loginMessage.textContent = 'Preencha o código e a senha.';
+                return;
+            }
+            toggleButtonLoader(loginButton, true);
+            const result = await callAppsScript('login', { code, password });
+            toggleButtonLoader(loginButton, false);
+            if (result.status === 'success') {
+                handleSuccessfulLogin({ name: result.name, code: code, turma: result.turma });
+            } else if (result.status === 'not_found') {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                registerCodeInput.value = code;
+                registerCodeInput.removeAttribute('readonly');
+            } else {
+                loginMessage.textContent = result.message || 'Ocorreu um erro.';
+            }
+        });
+        
+        goToRegisterButton.addEventListener('click', () => {
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+            loginMessage.textContent = '';
+            registerCodeInput.removeAttribute('readonly');
+            registerCodeInput.value = '';
+        });
+
+        registerButton.addEventListener('click', async () => {
+            const rawName = registerNameInput.value.trim();
+            const turma = registerClassInput.value;
+            const code = registerCodeInput.value.trim();
+            const password = registerPasswordInput.value.trim();
+            registerMessage.textContent = '';
+            if (!rawName || !turma || !code || !password) {
+                registerMessage.textContent = 'Todos os campos são obrigatórios.';
+                return;
+            }
+            const name = capitalizeName(rawName);
+            toggleButtonLoader(registerButton, true);
+            const data = { name, turma, code, password };
+            const result = await callAppsScript('register', data);
+            toggleButtonLoader(registerButton, false);
+            if (result.status === 'success') {
+                handleSuccessfulLogin({ name: name, code: code, turma: turma });
+            } else {
+                registerMessage.textContent = result.message || 'Ocorreu um erro.';
+            }
+        });
+
+        backToLoginButton.addEventListener('click', () => {
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            registerMessage.textContent = '';
+        });
+
+        loginPasswordInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') loginButton.click(); });
+        loginCodeInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') loginButton.click(); });
+        registerPasswordInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') registerButton.click(); });
+        registerCodeInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') registerButton.click(); });
+        registerNameInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') registerButton.click(); });
+
+        window.addEventListener('load', () => {
+            const user = sessionStorage.getItem('loggedInUser');
+            if (user) {
+                loggedInUser = JSON.parse(user);
+                playerFirstNameEl.textContent = loggedInUser.firstName;
+                showScreen(videoScreen);
+            } else {
+                showScreen(loginScreen);
+            }
+            updateScoreDisplay();
+        });
+        
+        // --- LÓGICA DO VÍDEO ---
+        let player;
+        let progressCheckInterval;
+        let maxWatchedTime = 0;
+
+        function updateScoreDisplay() {
+            document.querySelectorAll('.score-display').forEach(el => el.textContent = score);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: '5sHWLjGBsjU',
+                playerVars: { 'playsinline': 1, 'rel': 0, 'controls': 1 },
+                events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
+            });
+        }
+
+        function onPlayerReady(event) {
+            maxWatchedTime = 0;
+            videoPointsInvalidated = false;
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                clearInterval(progressCheckInterval); 
+                progressCheckInterval = setInterval(() => {
+                    const currentTime = player.getCurrentTime();
+                    const duration = player.getDuration();
+                    const isMuted = player.isMuted();
+                    const playbackRate = player.getPlaybackRate();
+                    const scoreTextEl = videoScreen.querySelector('.score-display').parentElement;
+
+                    if (currentTime > maxWatchedTime + 1.5) {
+                        player.seekTo(maxWatchedTime, true);
+                    } else if (currentTime > maxWatchedTime) {
+                        maxWatchedTime = currentTime;
+                    }
+                    
+                    if (isMuted || playbackRate !== 1) {
+                        videoPointsInvalidated = true;
+                    }
+
+                    if(videoPointsInvalidated) {
+                        score = 0;
+                        scoreTextEl.classList.add('text-red-500');
+                    } else if (duration > 0) {
+                        const potentialScore = (maxWatchedTime / duration) * 1000;
+                        score = Math.floor(potentialScore / 10) * 10;
+                        scoreTextEl.classList.remove('text-red-500');
+                    }
+                    updateScoreDisplay();
+
+                    if ((maxWatchedTime / duration) >= 0.9) {
+                        if (continueBtn.disabled) {
+                            continueBtn.disabled = false;
+                            continueBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        }
+                    }
+                }, 500);
+            } else {
+                clearInterval(progressCheckInterval);
+            }
+        }
+
+        continueBtn.addEventListener('click', () => {
+            if (!continueBtn.disabled) {
+                showScreen(gameScreen);
+                startGame();
+            }
+        });
+
+        skipVideoBtn.addEventListener('click', () => {
+            score = 0;
+            updateScoreDisplay();
+            showScreen(gameScreen);
+            startGame();
+        });
+
+        // --- LÓGICA DO QUIZ ---
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startGame() {
+            if(player && typeof player.stopVideo === 'function') {
+                player.stopVideo();
+            }
+            currentQuestionIndex = 0;
+            shuffledQuestions = shuffleArray([...questions]);
+            startTime = new Date();
+            updateScoreDisplay();
+            displayNextQuestion();
+        }
+
+        function displayNextQuestion() {
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                endGame(true); // Finaliza o jogo se todas as questões foram respondidas
+                return;
+            }
+
+            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            questionContainer.textContent = currentQuestion.question;
+            optionsContainer.innerHTML = '';
+
+            const shuffledOptions = shuffleArray([...currentQuestion.options]);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-button', 'w-full', 'bg-white/10', 'text-white', 'text-lg', 'sm:text-xl', 'font-bold', 'py-4', 'px-2', 'rounded-xl', 'shadow-lg', 'border-violet-400', 'hover:bg-violet-500/30');
+                button.addEventListener('click', handleAnswer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function handleAnswer(e) {
+            const selectedOption = e.target.textContent;
+            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            const correctAnswer = currentQuestion.answer;
+            const explanation = currentQuestion.explanation;
+
+            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
+
+            if (selectedOption === correctAnswer) {
+                score += currentQuestion.points;
+                showFeedback(`+${currentQuestion.points} Pontos! 🎉`, explanation, true);
+                e.target.classList.remove('bg-white/10', 'border-violet-400', 'hover:bg-violet-500/30');
+                e.target.classList.add('bg-green-500', 'border-green-700', 'text-white');
+            } else {
+                const wrongFeedbackMsg = `Ops! A resposta certa é "${correctAnswer}".`;
+                showFeedback(wrongFeedbackMsg, explanation, false);
+                 e.target.classList.remove('bg-white/10', 'border-violet-400', 'hover:bg-violet-500/30');
+                e.target.classList.add('bg-red-500', 'border-red-700', 'text-white');
+            }
+            
+            updateScoreDisplay();
+            currentQuestionIndex++;
+        }
+
+        function showFeedback(message, explanation, isCorrect) {
+            feedbackEl.innerHTML = `
+                <strong class="block text-3xl mb-2">${message}</strong>
+                <span class="text-xl mt-2 block font-normal">${explanation}</span>
+                <button id="feedback-continue-btn" class="mt-6 w-full bg-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/30 transition option-button border-white/30">Continuar →</button>
+            `;
+            
+            const colorClass = isCorrect ? 'bg-gradient-to-br from-green-400 to-emerald-600' : 'bg-gradient-to-br from-red-400 to-rose-600';
+            feedbackEl.className = `fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm:p-8 rounded-2xl text-white text-2xl font-bold shadow-2xl w-11/12 max-w-sm text-center transition-all duration-300 ease-in-out ${colorClass} opacity-0 scale-90`;
+            
+            feedbackEl.classList.remove('pointer-events-none');
+            
+            requestAnimationFrame(() => {
+                feedbackEl.classList.remove('opacity-0', 'scale-90');
+            });
+
+            const hideAndContinue = () => {
+                feedbackEl.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+                setTimeout(displayNextQuestion, 300); // Wait for animation
+            };
+
+            document.getElementById('feedback-continue-btn').addEventListener('click', hideAndContinue, { once: true });
+        }
+        
+        function getMotivationalMessage(finalScore) {
+            if (finalScore >= 1000) {
+                return "Excelente, " + loggedInUser.firstName + "! Você domina a ciência! 🏆";
+            } else if (finalScore >= 500) {
+                return "Muito bem, " + loggedInUser.firstName + "! Continue praticando para ficar ainda melhor. 👍";
+            } else {
+                return "Não desista, " + loggedInUser.firstName + "! Cada tentativa é um passo para aprender mais. ✨";
+            }
+        }
+        
+        // --- LÓGICA DE FIM DE JOGO E RANKING ---
+        function resetGame() {
+            score = 0;
+            currentQuestionIndex = 0;
+            videoPointsInvalidated = false;
+            maxWatchedTime = 0;
+            startTime = null;
+
+            updateScoreDisplay();
+            
+            if (player && typeof player.seekTo === 'function') {
+                player.seekTo(0, true);
+                player.stopVideo();
+            }
+            
+            continueBtn.disabled = true;
+            continueBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            videoScreen.querySelector('.score-display').parentElement.classList.remove('text-red-500');
+
+            showScreen(videoScreen);
+        }
+
+        async function endGame(allQuestionsAnswered = false) {
+            let finalScore = score;
+            bonusMessageEl.textContent = '';
+            
+            if (allQuestionsAnswered){
+                 finalScore += 500; // Bônus por terminar todas as questões
+                 bonusMessageEl.textContent = `+500 pontos de bônus por terminar o jogo!`;
+            }
+
+            const endTime = new Date();
+            const timeSpent = Math.round((endTime - startTime) / 1000);
+            
+            showScreen(endScreen);
+            endScreenContent.classList.remove('hidden');
+            playAgainButton.classList.remove('hidden');
+            backFromRankingButton.classList.add('hidden');
+            document.getElementById('final-score').textContent = finalScore;
+            finalMessageEl.textContent = getMotivationalMessage(finalScore);
+            
+            const result = await callAppsScript('saveScoreAndGetRanking', { 
+                fullName: loggedInUser.name, 
+                turma: loggedInUser.turma, 
+                score: finalScore, 
+                time: timeSpent,
+                nomeDoJogo: NOME_DESTE_JOGO,
+                code: loggedInUser.code
+            });
+            
+            if (result.status === 'success') {
+                populateRankingTable(result.ranking, loggedInUser.code);
+            } else {
+                document.getElementById('ranking-body').innerHTML = `<tr><td colspan="4" class="p-4 text-center text-red-500">${result.message}</td></tr>`;
+            }
+        }
+        
+        async function displayRanking() {
+            showScreen(endScreen);
+            endScreenContent.classList.add('hidden');
+            playAgainButton.classList.add('hidden');
+            backFromRankingButton.classList.remove('hidden');
+
+            const result = await callAppsScript('getRanking', { nomeDoJogo: NOME_DESTE_JOGO });
+            if (result.status === 'success') {
+                const userCode = loggedInUser ? loggedInUser.code : null;
+                populateRankingTable(result.ranking, userCode);
+            } else {
+                document.getElementById('ranking-body').innerHTML = `<tr><td colspan="4" class="p-4 text-center text-red-500">${result.message}</td></tr>`;
+            }
+        }
+
+        viewRankingButton.addEventListener('click', displayRanking);
+        
+        backFromRankingButton.addEventListener('click', () => {
+            showScreen(loginScreen);
+        });
+
+        function populateRankingTable(ranking, currentUserCode) {
+            const tbody = document.getElementById('ranking-body');
+            tbody.innerHTML = '';
+            if(!ranking || ranking.length === 0){
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center">Ainda não há pontuações. Seja o primeiro!</td></tr>`;
+                return;
+            }
+            ranking.forEach((entry, index) => {
+                const isCurrentUser = currentUserCode && entry.code === currentUserCode;
+                const row = `
+                    <tr class="border-b border-white/10 ${isCurrentUser ? 'bg-yellow-500/30' : ''}">
+                        <td class="p-2 font-bold">${index + 1}</td>
+                        <td class="p-2">${entry.name}</td>
+                        <td class="p-2">${entry.score}</td>
+                        <td class="p-2">${entry.turma}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        playAgainButton.addEventListener('click', resetGame);
+
+    </script>
+</body>
+</html>
+
