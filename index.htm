@@ -560,12 +560,12 @@
 
             if (selectedOption === correctAnswer) {
                 score += currentQuestion.points;
-                showFeedback(`+${currentQuestion.points} Pontos! 🎉`, explanation, true);
+                showFeedback(`+${currentQuestion.points} Pontos! 🎉`, explanation, true, true);
                 e.target.classList.remove('bg-white/10', 'border-violet-400', 'hover:bg-violet-500/30');
                 e.target.classList.add('bg-green-500', 'border-green-700', 'text-white');
             } else {
                 const wrongFeedbackMsg = `Ops! A resposta certa é "${correctAnswer}".`;
-                showFeedback(wrongFeedbackMsg, explanation, false);
+                showFeedback(wrongFeedbackMsg, explanation, false, false);
                  e.target.classList.remove('bg-white/10', 'border-violet-400', 'hover:bg-violet-500/30');
                 e.target.classList.add('bg-red-500', 'border-red-700', 'text-white');
             }
@@ -574,11 +574,17 @@
             currentQuestionIndex++;
         }
 
-        function showFeedback(message, explanation, isCorrect) {
+        function showFeedback(message, explanation, isCorrect, allowBonusButton = false) {
             feedbackEl.innerHTML = `
                 <strong class="block text-3xl mb-2">${message}</strong>
                 <span class="text-xl mt-2 block font-normal">${explanation}</span>
                 <button id="feedback-continue-btn" class="mt-6 w-full bg-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/30 transition option-button border-white/30">Continuar →</button>
+                ${(isCorrect && allowBonusButton) ? `
+                <button id="generate-bonus-btn" class="mt-4 w-full bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-yellow-500/50 transition option-button border-amber-700 flex items-center justify-center">
+                    <span class="button-text">✨ Gerar Pergunta Bônus</span>
+                    <div class="loader hidden ml-3"></div>
+                </button>
+                ` : ''}
             `;
             
             const colorClass = isCorrect ? 'bg-gradient-to-br from-green-400 to-emerald-600' : 'bg-gradient-to-br from-red-400 to-rose-600';
@@ -596,6 +602,11 @@
             };
 
             document.getElementById('feedback-continue-btn').addEventListener('click', hideAndContinue, { once: true });
+
+            if (isCorrect && allowBonusButton) {
+                const currentQuestion = shuffledQuestions[currentQuestionIndex];
+                document.getElementById('generate-bonus-btn').addEventListener('click', () => generateBonusQuestion(currentQuestion), { once: true });
+            }
         }
         
         function getMotivationalMessage(finalScore) {
@@ -608,6 +619,120 @@
             }
         }
         
+        function showMessageModal(title, message) {
+            feedbackEl.innerHTML = `
+                <strong class="block text-3xl mb-2">${title}</strong>
+                <span class="text-xl mt-2 block font-normal">${message}</span>
+                <button id="feedback-continue-btn" class="mt-6 w-full bg-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/30 transition option-button border-white/30">OK</button>
+            `;
+            
+            feedbackEl.className = `fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm:p-8 rounded-2xl text-white text-2xl font-bold shadow-2xl w-11/12 max-w-sm text-center transition-all duration-300 ease-in-out bg-gradient-to-br from-gray-600 to-gray-800 opacity-0 scale-90`;
+            
+            feedbackEl.classList.remove('pointer-events-none');
+            
+            requestAnimationFrame(() => {
+                feedbackEl.classList.remove('opacity-0', 'scale-90');
+            });
+
+            const hideModal = () => {
+                feedbackEl.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+            };
+
+            document.getElementById('feedback-continue-btn').addEventListener('click', hideModal, { once: true });
+        }
+
+        async function generateBonusQuestion(previousQuestion) {
+            const bonusButton = document.getElementById('generate-bonus-btn');
+            toggleButtonLoader(bonusButton, true);
+
+            const apiKey = ""; // A chave da API será fornecida pelo ambiente
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `Você é um tutor de ciências para alunos do 5º ano no Brasil. Crie uma nova pergunta de múltipla escolha com 4 opções, baseada na pergunta anterior. A nova pergunta deve ter um nível de dificuldade semelhante. A resposta deve ser um objeto JSON com a seguinte estrutura: { "question": "...", "options": ["...", "...", "...", "..."], "answer": "...", "explanation": "...", "points": 25 }`;
+            const userQuery = `Aqui está a pergunta anterior para referência. Pergunta: "${previousQuestion.question}"`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                const textResponse = candidate?.content?.parts?.[0]?.text;
+
+                if (textResponse) {
+                    const cleanedJsonString = textResponse.replace(/```json/g, '').replace(/```/g, '').trim();
+                    const bonusQuestion = JSON.parse(cleanedJsonString);
+
+                    if (bonusQuestion.question && bonusQuestion.options && bonusQuestion.answer && bonusQuestion.explanation && bonusQuestion.points) {
+                        displayBonusQuestion(bonusQuestion);
+                    } else {
+                        throw new Error("Formato de JSON inválido recebido da API.");
+                    }
+                } else {
+                    throw new Error("Resposta da API vazia ou mal formatada.");
+                }
+
+            } catch (error) {
+                console.error("Erro ao gerar pergunta bônus:", error);
+                showMessageModal('Erro', 'Desculpe, não foi possível gerar uma pergunta bônus agora. Tente novamente mais tarde.');
+                if (bonusButton) {
+                    toggleButtonLoader(bonusButton, false);
+                    bonusButton.style.display = 'none';
+                }
+            }
+        }
+
+        function displayBonusQuestion(bonusQuestion) {
+            feedbackEl.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+            
+            questionContainer.textContent = bonusQuestion.question;
+            optionsContainer.innerHTML = '';
+
+            const shuffledOptions = shuffleArray([...bonusQuestion.options]);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-button', 'w-full', 'bg-gradient-to-r', 'from-amber-500', 'to-yellow-500', 'text-white', 'text-lg', 'sm:text-xl', 'font-bold', 'py-4', 'px-2', 'rounded-xl', 'shadow-lg', 'border-amber-700', 'hover:from-amber-600', 'hover:to-yellow-600');
+                button.addEventListener('click', (e) => handleBonusAnswer(e, bonusQuestion));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function handleBonusAnswer(e, bonusQuestion) {
+            const selectedOption = e.target.textContent;
+            const correctAnswer = bonusQuestion.answer;
+            const explanation = bonusQuestion.explanation;
+
+            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
+
+            if (selectedOption === correctAnswer) {
+                score += bonusQuestion.points;
+                showFeedback(`✨ Bônus! +${bonusQuestion.points} Pontos! 🚀`, explanation, true, false);
+                e.target.className = 'option-button w-full bg-green-500 border-green-700 text-white text-lg sm:text-xl font-bold py-4 px-2 rounded-xl shadow-lg';
+            } else {
+                const wrongFeedbackMsg = `Ops! A resposta certa era "${correctAnswer}".`;
+                showFeedback(wrongFeedbackMsg, explanation, false, false);
+                e.target.className = 'option-button w-full bg-red-500 border-red-700 text-white text-lg sm:text-xl font-bold py-4 px-2 rounded-xl shadow-lg';
+            }
+            
+            updateScoreDisplay();
+        }
+
         // --- LÓGICA DE FIM DE JOGO E RANKING ---
         function resetGame() {
             score = 0;
